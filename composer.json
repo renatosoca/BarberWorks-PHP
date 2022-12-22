@@ -1,0 +1,19 @@
+{
+    "name": "rena/app-salon",
+    "description": "proyecto 2",
+    "type": "project",
+    "authors": [
+        {
+            "name": "DevRenato",
+            "email": "u18215194@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Model\\": "./models",
+            "Controller\\": "./controllers",
+            "Router\\": "./"
+        }
+    }
+}
