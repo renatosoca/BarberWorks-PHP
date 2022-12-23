@@ -8,12 +8,15 @@
             "email": "u18215194@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "phpmailer/phpmailer": "^6.7"
+    },
     "autoload": {
         "psr-4": {
             "Model\\": "./models",
             "Controller\\": "./controllers",
-            "Router\\": "./"
+            "Router\\": "./",
+            "Classes\\": "./classes"
         }
     }
 }

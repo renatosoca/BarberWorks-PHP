@@ -19,6 +19,10 @@ $router->post("/recuperar", [LoginController::class, "recuperar"]);
 //Crear Cuenta
 $router->get("/crear-cuenta", [LoginController::class, "crear"]);
 $router->post("/crear-cuenta", [LoginController::class, "crear"]);
+//Confirmar Cuenta
+$router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
+
+$router->get('/mensaje', [LoginController::class, 'mensaje']);
 
 
 //comprueba que existan las URL y se les asigne las funciones del controller correspondiente

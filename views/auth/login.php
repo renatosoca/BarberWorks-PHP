@@ -1,6 +1,9 @@
 <h1 class="nombre-pagina">Login</h1>
 <p class="descripcion-pagina">Inicia Sesión con tus datos</p>
-<form clas="formulario" action="/" action="POST">
+
+<?php include_once __DIR__.'/../templates/alertas.php'; ?>
+
+<form clas="formulario" action="/" method="POST">
     <div class="campo">
         <label for="email">Email</label>
         <input 
@@ -8,6 +11,7 @@
             id="email"
             name="login[email]"
             placeholder="Ingresa tu Email"
+            value="<?php echo s($auth->email); ?>"
         />
     </div>
 
