@@ -14,14 +14,35 @@ class LoginController
         $auth = new Usuario;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //Almacenar los datos del formulario
             $auth = new Usuario($_POST['login']);
             $alertas = $auth->validarUser();
             
             if (empty( $alertas )) {
-                
+                //Comprobar si existe el usuario
+                $user = Usuario::where('email', $auth->email);
+                if ($user) {
+                    if ( $user->comporbarPassANDVerificado($auth->pass) ) {
+                        session_start();
+                        $_SESSION['usuarioId'] = $user->id;
+                        $_SESSION['nombre'] = $user->nombre. " " .$user->apellido;
+                        $_SESSION['email'] = $user->email;
+                        $_SESSION['login'] = true;
+
+                        if ($user->admin === "1") {
+                            $_SESSION['admin'] = $user->admin;
+                            header('Location: /admin');
+                        } else {
+                            header('Location: /citas');
+                        }
+                    }
+                } else {
+                    Usuario::setAlerta('error', 'Usuario no encontrado');
+                }
             }
         }
 
+        $alertas = Usuario::getAlertas();
         $router->render("auth/login", [
             'alertas' => $alertas,
             'auth' => $auth
@@ -33,8 +54,25 @@ class LoginController
     }
 
     public static function olvide( Router $router ) {
-        $router->render("auth/olvide", [
+        $alertas = [];
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $auth = new Usuario( $_POST['olvide'] );
+            $alertas = $auth->validarEmail();
+
+            if (empty($alertas)) {
+                $user = Usuario::where('email', $auth->email);
+                
+                if ($user && $user->confirmado === "1") {
+                    debuguear("si existe");
+                } else {
+                    debuguear("no existe");
+                }
+            }
+        }
+
+        $router->render("auth/olvide", [
+            'alertas' => $alertas
         ]);
     }
 

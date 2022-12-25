@@ -61,6 +61,14 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function validarEmail() {
+        if (!$this->email) {
+            self::$alertas['error'][] = 'El Email es Obligatorio';
+        }
+
+        return self::$alertas;
+    }
+
     public function existeUsuario() {
         $query = "SELECT * FROM ". self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
         
@@ -79,5 +87,15 @@ class Usuario extends ActiveRecord {
 
     public function crearToken() {
         $this->token = uniqid();
+    }
+
+    public function comporbarPassANDVerificado($pass) {
+        $resultado = password_verify($pass, $this->pass);
+        
+        if (!$resultado || !$this->confirmado) {
+            self::$alertas['error'][] = 'Contraseña incorrecto o falta verificar su E-mail';
+        }else {
+            return true;
+        }
     }
 }
