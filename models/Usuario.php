@@ -69,6 +69,17 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    public function validarPass() {
+        if (!$this->pass) {
+            self::$alertas['error'][] = 'La contraseña es Obligatorio';
+        }
+        if (strlen($this->pass) < 6) {
+            self::$alertas['error'][] = 'El pass debe tener al menos 6 caracteres';
+        }
+
+        return self::$alertas; 
+    }
+
     public function existeUsuario() {
         $query = "SELECT * FROM ". self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
         

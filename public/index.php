@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/app.php';
 
+use Controller\CitaController;
 use Controller\LoginController;
 use Router\Router;
 
@@ -21,8 +22,11 @@ $router->get("/crear-cuenta", [LoginController::class, "crear"]);
 $router->post("/crear-cuenta", [LoginController::class, "crear"]);
 //Confirmar Cuenta
 $router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']);
-
+//Mensaje de confirmacion de Cuenta
 $router->get('/mensaje', [LoginController::class, 'mensaje']);
+
+//Area Privada
+$router->get('/cita', [CitaController::class, 'index']);
 
 
 //comprueba que existan las URL y se les asigne las funciones del controller correspondiente

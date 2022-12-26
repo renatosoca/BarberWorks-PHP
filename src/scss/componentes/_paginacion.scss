@@ -1,0 +1,16 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.paginacion {
+    padding: 5rem 0;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+        width: max-content;
+    }
+}
+
+.ocultar {
+    visibility: hidden;
+}

@@ -19,5 +19,10 @@
         padding: 1rem;
         border: none;
         border-radius: 1rem;
+        &:disabled {
+            background-color: lighten( v.$negro, 30%);
+            color: v.$blanco;
+            cursor: not-allowed;
+        }
     }
 }

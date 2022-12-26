@@ -50,7 +50,11 @@ class LoginController
     }
 
     public static function logout() {
-        echo "logout";
+        session_start();
+
+        $_SESSION[] = [];
+
+        header('Location: /');
     }
 
     public static function olvide( Router $router ) {
@@ -64,20 +68,57 @@ class LoginController
                 $user = Usuario::where('email', $auth->email);
                 
                 if ($user && $user->confirmado === "1") {
-                    debuguear("si existe");
+                    $user->crearToken();
+                    $user->guardar();
+
+                    $mail = new Email($user->email, $user->nombre, $user->token);
+                    $resultado = $mail->enviarInstrucciones();
+                    if ($resultado) {
+                        Usuario::setAlerta('exito', 'Revisa tu Email');
+                    }
                 } else {
-                    debuguear("no existe");
+                    Usuario::setAlerta('error', 'El usuario no existe o no está confirmado');
                 }
             }
         }
-
+        
+        $alertas = Usuario::getAlertas();
         $router->render("auth/olvide", [
             'alertas' => $alertas
         ]);
     }
 
-    public static function recuperar() {
-        echo "recuperar";
+    public static function recuperar( Router $router ) {
+        $alertas = [];
+        $error = false;
+        $token = s( $_GET['token'] );
+
+        $user = Usuario::where('token', $token);
+        if (empty($user)) {
+            Usuario::setAlerta('error', 'Token no Valido');
+            $error = true;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $pass = new Usuario($_POST['recuperar']);
+            $alertas = $pass->validarPass();
+            if (empty( $alertas )) {
+                $user->pass = $pass->pass;
+                $user->hashPassword();
+                $user->token = '';
+                
+                $resultado = $user->guardar();
+                if ($resultado) {
+                    header('Location: /');
+                }
+            }
+        }
+
+        $alertas = Usuario::getAlertas();
+        $router->render('auth/recuperar', [
+            'alertas' => $alertas,
+            'error' => $error
+        ]);
     }
 
     public static function crear( Router $router ) {
