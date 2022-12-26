@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../includes/app.php';
 
+use Controller\APIController;
 use Controller\CitaController;
 use Controller\LoginController;
 use Router\Router;
@@ -27,6 +28,9 @@ $router->get('/mensaje', [LoginController::class, 'mensaje']);
 
 //Area Privada
 $router->get('/cita', [CitaController::class, 'index']);
+
+//API de Citas
+$router->get('/api/servicios', [APIController::class, 'index']);
 
 
 //comprueba que existan las URL y se les asigne las funciones del controller correspondiente

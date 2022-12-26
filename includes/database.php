@@ -1,7 +1,7 @@
 <?php
 
 $db = mysqli_connect('localhost', 'root', '', 'app_salon');
-
+$db->set_charset('utf8');
 
 if (!$db) {
     echo "Error: No se pudo conectar a MySQL.";
