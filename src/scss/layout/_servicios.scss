@@ -10,6 +10,14 @@
         border-radius: 1rem;
         transition: transform 400ms ease;
 
+        &.seleccionado {
+            background-color: v.$azul;
+
+            p {
+                color: v.$blanco;
+            }
+        }
+
         &:hover {
             transform: scale(1.1);
         }

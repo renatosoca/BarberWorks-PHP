@@ -33,7 +33,7 @@ class LoginController
                             $_SESSION['admin'] = $user->admin;
                             header('Location: /admin');
                         } else {
-                            header('Location: /citas');
+                            header('Location: /cita');
                         }
                     }
                 } else {
@@ -52,7 +52,7 @@ class LoginController
     public static function logout() {
         session_start();
 
-        $_SESSION[] = [];
+        $_SESSION = [];
 
         header('Location: /');
     }

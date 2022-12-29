@@ -20,3 +20,13 @@
         padding: 3rem 0;
     }
 }
+
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn {
+    width: max-content;
+  }
+}
