@@ -15,4 +15,9 @@
         display: block;
         margin-bottom: calc(v.$separacion/2);
     }
+
+    .btn {
+        width: max-content;
+        margin: 0;
+    }
 }
