@@ -29,68 +29,68 @@ class Usuario extends ActiveRecord {
 
     public function validar() {
         if (!$this->nombre) {
-            self::$alertas['error'][] = 'El Nombre es Obligatorio';
+            self::$alerts['error'][] = 'El Nombre es Obligatorio';
         }
         if (!$this->apellido) {
-            self::$alertas['error'][] = 'El Apellido es Obligatorio';
+            self::$alerts['error'][] = 'El Apellido es Obligatorio';
         }
         if (!$this->telefono) {
-            self::$alertas['error'][] = 'El Telefono es Obligatorio';
+            self::$alerts['error'][] = 'El Telefono es Obligatorio';
         }
         if (!$this->email) {
-            self::$alertas['error'][] = 'El Email es Obligatorio';
+            self::$alerts['error'][] = 'El Email es Obligatorio';
         }
         if (!$this->pass) {
-            self::$alertas['error'][] = 'La contraseña es Obligatorio';
+            self::$alerts['error'][] = 'La contraseña es Obligatorio';
         }
         if (strlen($this->pass) < 6) {
-            self::$alertas['error'][] = 'El pass debe tener al menos 6 caracteres';
+            self::$alerts['error'][] = 'El pass debe tener al menos 6 caracteres';
         }
 
-        return self::$alertas;
+        return self::$alerts;
     }
 
     public function validarUser() {
         if (!$this->email) {
-            self::$alertas['error'][] = 'El Email es Obligatorio';
+            self::$alerts['error'][] = 'El Email es Obligatorio';
         }
         if (!$this->pass) {
-            self::$alertas['error'][] = 'La contraseña es Obligatorio';
+            self::$alerts['error'][] = 'La contraseña es Obligatorio';
         }
 
-        return self::$alertas;
+        return self::$alerts;
     }
 
     public function validarEmail() {
         if (!$this->email) {
-            self::$alertas['error'][] = 'El Email es Obligatorio';
+            self::$alerts['error'][] = 'El Email es Obligatorio';
         }
 
-        return self::$alertas;
+        return self::$alerts;
     }
 
     public function validarPass() {
         if (!$this->pass) {
-            self::$alertas['error'][] = 'La contraseña es Obligatorio';
+            self::$alerts['error'][] = 'La contraseña es Obligatorio';
         }
         if (strlen($this->pass) < 6) {
-            self::$alertas['error'][] = 'El pass debe tener al menos 6 caracteres';
+            self::$alerts['error'][] = 'El pass debe tener al menos 6 caracteres';
         }
 
-        return self::$alertas; 
+        return self::$alerts; 
     }
 
-    public function existeUsuario() {
+    /* public function existeUsuario() {
         $query = "SELECT * FROM ". self::$tabla . " WHERE email = '" . $this->email . "' LIMIT 1";
         
         $resultado = self::$db->query($query);
 
         if ($resultado->num_rows) {
-            self::$alertas['error'][] = 'El Usuario ya está registrado';
+            self::$alerts['error'][] = 'El Usuario ya está registrado';
         }
 
         return $resultado;
-    }
+    } */
 
     public function hashPassword() {
         $this->pass = password_hash($this->pass, PASSWORD_BCRYPT);
@@ -104,7 +104,7 @@ class Usuario extends ActiveRecord {
         $resultado = password_verify($pass, $this->pass);
         
         if (!$resultado || !$this->confirmado) {
-            self::$alertas['error'][] = 'Contraseña incorrecto o falta verificar su E-mail';
+            self::$alerts['error'][] = 'Contraseña incorrecto o falta verificar su E-mail';
         }else {
             return true;
         }

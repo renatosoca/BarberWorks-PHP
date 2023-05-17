@@ -1,22 +1,23 @@
 {
-    "name": "rena/app-salon",
-    "description": "proyecto 2",
-    "type": "project",
-    "authors": [
-        {
-            "name": "DevRenato",
-            "email": "u18215194@gmail.com"
-        }
-    ],
-    "require": {
-        "phpmailer/phpmailer": "^6.7"
-    },
-    "autoload": {
-        "psr-4": {
-            "Model\\": "./models",
-            "Controller\\": "./controllers",
-            "Router\\": "./",
-            "Classes\\": "./classes"
-        }
+  "name": "renatosoca/salon-spa",
+  "description": "project 1",
+  "type": "project",
+  "authors": [
+    {
+      "name": "renatosoca",
+      "email": "u18215194@gmail.com"
     }
+  ],
+  "require": {
+    "phpmailer/phpmailer": "^6.7",
+    "vlucas/phpdotenv": "^5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Model\\": "./models",
+      "Controller\\": "./controllers",
+      "Class\\": "./classes",
+      "Router\\": "./"
+    }
+  }
 }

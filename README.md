@@ -1,8 +1,11 @@
 # AppSalon
-descargar dependencias de npm con =>
 
-npm install o npm i.
+## Para iniciar el proyecto se debe descargar las dependencias de node y composer
 
-Luego descargar dependencias del composer con =>
+```
+npm install
+```
 
-composer update.
+```
+composer update
+```
