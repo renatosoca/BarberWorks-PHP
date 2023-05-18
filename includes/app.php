@@ -1,16 +1,18 @@
-<?php 
-  use Model\ActiveRecord;
-  use Dotenv\Dotenv;
+<?php
 
-  require '../database/config.php';
-  require 'helpers.php';
-  require __DIR__ . '/../vendor/autoload.php';
+use App\Models\Model;
+use Dotenv\Dotenv;
 
-  $dotenv = Dotenv::createImmutable(__DIR__);
-  $dotenv->safeLoad();
+require '../database/config.php';
+require 'helpers.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-  $connection = new ConnectionDB();
-  $connection->connect();
+$dotenv = Dotenv::createImmutable(__DIR__.'/../');
+$dotenv->safeLoad();
 
-  ActiveRecord::setDataBase( $connection );
+$connection = new ConnectionDB();
+$connection->connect();
+
+Model::setDataBase( $connection );
+
 ?>

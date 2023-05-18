@@ -5,13 +5,12 @@
 
 <form clas="formulario" action="/" method="POST">
     <div class="campo">
-        <label for="email">Email</label>
+        <label for="email" class="text-5xl">Email</label>
         <input 
             type="email"
             id="email"
             name="login[email]"
             placeholder="Ingresa tu Email"
-            value="<?php echo s($auth->email); ?>"
         />
     </div>
 

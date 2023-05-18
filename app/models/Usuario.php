@@ -1,29 +1,29 @@
 <?php
-namespace Model;
+namespace App\Models;
 
-class Usuario extends ActiveRecord {
+class Usuario extends Model {
     protected static $tabla = 'usuarios';
     protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'pass', 'telefono', 'admin', 'confirmado', 'token'];
 
-    public $id;
-    public $nombre;
-    public $apellido;
-    public $email;
-    public $pass;
-    public $telefono;
-    public $admin;
-    public $confirmado;
-    public $token;
+    public string $id;
+    public string $nombre;
+    public string $apellido;
+    public string $email;
+    public string $pass;
+    public string $telefono;
+    public string $admin;
+    public bool $confirmado;
+    public string $token;
 
     public function __construct( array $args = []) {
-        $this->id = $args['id'] ?? null;
+        $this->id = $args['id'] ?? '';
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->pass = $args['pass'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
-        $this->admin = $args['admin'] ?? 0;
-        $this->confirmado = $args['confirmado'] ?? 0;
+        $this->admin = $args['admin'] ?? '';
+        $this->confirmado = $args['confirmado'] ?? false;
         $this->token = $args['token'] ?? '';
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-  namespace Model;
+  namespace App\Models;
 
-  class ActiveRecord {
+  class Model {
     protected static $database;
     protected static string $table = '';
     protected static array $columnsDB = [];
     protected static array $alerts = [];
 
-    protected static string $id;
+    protected string $id;
 
     public static function setDataBase( $DataBase ): void {
       self::$database = $DataBase;

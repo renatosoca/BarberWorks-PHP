@@ -1,36 +1,37 @@
 <?php
 
-  class ConnectionDB {
-    private ?PDO $connect;
+class ConnectionDB {
+  private ?PDO $connect;
 
-    protected string $hostName;
-    protected string $dataBase;
-    protected string $charset;
-    protected string $userName;
-    protected string $password;
+  protected string $db_host;
+  protected string $db_name;
+  protected string $db_charset;
+  protected string $bd_user;
+  protected string $bd_pass;
 
-    public function __construct() {
-      $this->hostName = $_ENV['DB_HOST'];
-      $this->dataBase = $_ENV['DB_NAME'];
-      $this->charset = $_ENV['DB_CHARSET'];
-      $this->userName = $_ENV['DB_USER'];
-      $this->password = $_ENV['DB_PASSWORD'];
-      
-      $connectionString = 'mysql:host='.$this->hostName.';dbname='.$this->dataBase.';charset='.$this->charset.'';
-      
-      try {
-        $this->connect = new PDO($connectionString, $this->userName, $this->password);
-        $this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  public function __construct() {
+    $this->db_host = $_ENV['DB_HOST'];
+    $this->db_name = $_ENV['DB_NAME'];
+    $this->db_charset = $_ENV['DB_CHARSET'];
+    $this->bd_user = $_ENV['DB_USER'];
+    $this->bd_pass = $_ENV['DB_PASS'];
+    
+    $connectionString = 'mysql:host='.$this->db_host.';dbname='.$this->db_name.';charset='.$this->db_charset.'';
+    
+    try {
+      $this->connect = new PDO($connectionString, $this->bd_user, $this->bd_pass);
+      $this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        echo 'Conexión exitosa';
-      } catch (PDOException $error) {
-        $this->connect = 'Error de conexión';
-        echo 'Error: '.$error->getMessage();
-      }
-    }
-
-    public function connect(): null | PDO {
-      return $this->connect;
+      //echo 'Conexión exitosa';
+    } catch (PDOException $error) {
+      $this->connect = 'Error de conexión';
+      echo 'Error: '.$error->getMessage();
     }
   }
+
+  public function connect(): null | PDO {
+    return $this->connect;
+  }
+}
+
 ?>

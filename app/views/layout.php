@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Salón</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;700;900&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="/src/css/app.css">
+    <!-- <link rel="stylesheet" href="/src/css/app.css"> -->
+    <?= vite("main.ts") ?>
 </head>
 <body>
 
@@ -15,8 +16,10 @@
         </div>
 
         <div class="app">
-            <?php echo $contenido; ?>
+            <?php echo $content; ?>
         </div>
+
+        <h1 class="text-4xl font-extrabold">Hola</h1>
     </div>
 
     <?php echo $script ?? ''; ?>

@@ -17,7 +17,8 @@
       "Model\\": "./models",
       "Controller\\": "./controllers",
       "Class\\": "./classes",
-      "Router\\": "./"
+      "Router\\": "./",
+      "App\\": "app/"
     }
   }
 }
