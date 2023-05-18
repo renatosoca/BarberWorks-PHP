@@ -17,33 +17,9 @@ const clean = require("gulp-clean");
 const webp = require("gulp-webp");
 
 const paths = {
-  scss: "src/scss/**/*.scss",
-  js: "src/js/**/*.js",
   imagenes: "src/img/**/*",
 };
 
-// css es una función que se puede llamar automaticamente
-function css() {
-  return (
-    src(paths.scss)
-      .pipe(sourcemaps.init()) //Para identificar donde modificar el codigo
-      .pipe(sass()) //Compilar
-      .pipe(postcss([autoprefixer(), cssnano()])) //Comprimir el codigo CSS
-      // .pipe(postcss([autoprefixer()]))
-      .pipe(sourcemaps.write("."))
-      .pipe(dest("public/src/css"))
-  );
-}
-
-function javascript() {
-  return src(paths.js)
-    .pipe(sourcemaps.init())
-    .pipe(terser()) //Comprimir el codigo JS
-    .pipe(sourcemaps.write("."))
-    .pipe(dest("public/src/js"));
-}
-
-//Optimizar todas las imagenes
 function imagenes() {
   return src(paths.imagenes)
     .pipe(cache(imagemin({ optimizationLevel: 3 })))
@@ -51,7 +27,6 @@ function imagenes() {
     .pipe(notify({ message: "Imagen Completada" }));
 }
 
-//convertir a .webp
 function versionWebp() {
   return src(paths.imagenes)
     .pipe(webp())
@@ -59,20 +34,10 @@ function versionWebp() {
     .pipe(notify({ message: "Imagen Webp Completada" }));
 }
 
-//Para que se compile los cambios automaticamente
 function watchArchivos() {
-  watch(paths.scss, css);
-  watch(paths.js, javascript);
   watch(paths.imagenes, imagenes);
   watch(paths.imagenes, versionWebp);
 }
 
-exports.css = css;
 exports.watchArchivos = watchArchivos;
-exports.default = parallel(
-  css,
-  javascript,
-  imagenes,
-  versionWebp,
-  watchArchivos
-);
+exports.default = parallel(imagenes, versionWebp, watchArchivos);
