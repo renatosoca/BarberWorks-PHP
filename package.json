@@ -1,12 +1,12 @@
 {
-  "name": "app-salon-php-mvc-sass-s",
+  "name": "barber-works",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "vite --host"
   },
-  "author": "",
+  "author": "Renato Soca",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.14.6",

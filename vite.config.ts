@@ -27,7 +27,7 @@ export default defineConfig({
         // change freely, but update on PHP to match the same port
         // tip: choose a different port per project to run them at the same time
         strictPort: true,
-        port: 5036,
+        port: 4554,
         host: true,
         watch: {
             usePolling: true,

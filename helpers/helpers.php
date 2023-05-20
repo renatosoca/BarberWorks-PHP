@@ -36,7 +36,7 @@ function isAdmin(): bool {
 }
 
 // Helpers here serve as example. Change to suit your needs.
-const VITE_HOST = 'http://localhost:5036';
+const VITE_HOST = 'http://localhost:4554';
 
 // For a real-world example check here:
 // https://github.com/wp-bond/bond/blob/master/src/Tooling/Vite.php
