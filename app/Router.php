@@ -3,43 +3,76 @@
 namespace App;
 
 class Router {
-  public array $getRoutes = [];
-  public array $postRoutes = [];
+  
+  private static array $routes = [];
 
-  public function get(string $url, array $fn): void {
-    $this->getRoutes[$url] = $fn;
+  public static function get(string $uri, $callback) {
+    $uri = trim($uri,"/");
+    self::$routes["GET"][$uri] = $callback;
   }
 
-  public function post(string $url, array $fn): void {
-    $this->postRoutes[$url] = $fn;
+  public static function post(string $uri, $callback) {
+    $uri = trim($uri,"/");
+    self::$routes["POST"][$uri] = $callback;
   }
 
-  public function checkRoutes(): bool | null {
-    $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
-    $validUrls = explode('?', $currentUrl)[0];
+  public static function dispatch(){
+    
+    $uri = $_SERVER["REQUEST_URI"];
+    $uri = trim($uri,"/");
+    $validUri = explode("?",$uri)[0];
 
-    $method = $_SERVER['REQUEST_METHOD'];
+    $method=$_SERVER["REQUEST_METHOD"];
 
-    if ($method === 'GET') $fn = $this->getRoutes[$validUrls] ?? null;
-    if ($method === 'POST') $fn = $this->postRoutes[$validUrls] ?? null;
+    foreach (self::$routes[$method] as $route => $callback) {
+      if(strpos($route,":")){
+        $route = preg_replace("#:[a-zA-Z1-9]+#","([a-zA-Z1-9]+)",$route);
+      }
+      
+      if(preg_match("#^$route$#",$validUri,$matches)){
+          
+        $params = array_slice($matches,1);
+        
+        if(is_callable($callback)){
+          $response= $callback(...$params);
+        }
 
-    if (!$fn) return header('Location: /404');
-
-    return call_user_func($fn, $this);
-  }
-
-  public function render(string $view, array $data = []): string {
-    foreach ($data as $key => $value) {
-      $$key = $value;
+        if(is_array($callback)){
+          $controller = new $callback[0];
+          $response   = $controller->{$callback[1]}(...$params);
+        }
+        
+        if(is_array($response) || is_object($response)){
+          header("Content-Type: application/json");
+          echo json_encode($response);
+        }else{
+          echo $response;
+        }
+        
+        return;
+      }
     }
+
+    echo "404";
+    return;
+  }
+
+  public static function render(string $view, string $layout, array $data = []): string {
+    extract($data);
 
     if(file_exists(__DIR__ ."/views/$view.php")) {
       ob_start();
       include_once __DIR__ . "/views/$view.php";
       $content = ob_get_clean();
-      include_once __DIR__ . '/views/layout.php';
+      include_once __DIR__ . "/views/layouts/$layout.php";
       return $content;
     }
+    echo 'Developer error: View not found';
     return "Error 404";
   }
+
+  public static function redirect(string $route): void{
+    header("Location: {$route}");
+  }
+
 }

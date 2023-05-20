@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ . '/../includes/app.php';
+require_once __DIR__ . '/../app/core/app.php';
 
 use App\Router;
+use App\Controllers\HomeController;
 
-use App\Controllers\LoginController;
+Router::get('/', [HomeController::class, 'index']);
+Router::get('/rena', [HomeController::class, 'index']);
+Router::get('/prueba/:id', [HomeController::class, 'prueba']);
 
-$router = new Router();
-
-//Iniciar Sesión
-$router->get("/", [LoginController::class, "login"]);
-$router->post("/", [LoginController::class, "login"]);
+//Router::get("/", [LoginController::class, "login"]);
+//$router->post("/", [LoginController::class, "login"]);
 //Cerrar Sesión
 /* $router->get("/logout", [LoginController::class, "logout"]); */
 //recuperar Password
@@ -45,4 +45,4 @@ $router->post('/api/eliminar', [APIController::class, 'eliminar']); */
 
 
 //comprueba que existan las URL y se les asigne las funciones del controller correspondiente
-$router->checkRoutes();
+Router::dispatch();

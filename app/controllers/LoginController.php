@@ -6,9 +6,9 @@ use App\Router;
 use Classes\Email;
 use App\Models\Usuario;
 
-class LoginController {
+class LoginController extends Controller {
 
-    public static function login( Router $router ) {
+    public function login() {
         $alertas = [];
         $auth = new Usuario;
 
@@ -42,7 +42,8 @@ class LoginController {
         }
 
         $alertas = Usuario::getAlert();
-        $router->render("auth/login", [
+         
+        return $this->view("auth/login",[
             'alertas' => $alertas,
             'auth' => $auth
         ]);
