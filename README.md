@@ -1,6 +1,14 @@
-# AppSalon
+# Barber Works
 
-## Para iniciar el proyecto se debe descargar las dependencias de node y composer
+## Para iniciar el proyecto, debes crear la base de datos y configurar el archivo .env
+
+```
+docker-compose up -d
+```
+
+```
+ejm
+```
 
 ```
 npm install

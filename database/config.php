@@ -24,7 +24,7 @@ class ConnectionDB {
 
       //echo 'Conexión exitosa';
     } catch (PDOException $error) {
-      $this->connect = 'Error de conexión';
+      $this->connect = null;
       echo 'Error: '.$error->getMessage();
     }
   }

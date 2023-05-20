@@ -7,7 +7,6 @@ use App\Router;
 class HomeController {
 
   public function index(){
-    echo $_SERVER['REQUEST_URI'];
 
     Router::render('home/index', 'PublicLayout', [
       'title' => 'Home'
