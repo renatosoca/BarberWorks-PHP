@@ -14,11 +14,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Model\\": "./models",
-      "Controller\\": "./controllers",
-      "Class\\": "./classes",
-      "Router\\": "./",
-      "App\\": "app/"
+      "App\\": "app/",
+      "Utils\\": "app/utils/"
     }
   }
 }

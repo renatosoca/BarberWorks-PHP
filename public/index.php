@@ -2,28 +2,33 @@
 require_once __DIR__ . '/../app/core/app.php';
 
 use App\Router;
-use App\Controllers\HomeController;
+use App\Controllers\AuthController;
 
-Router::get('/', [HomeController::class, 'index']);
-Router::get('/rena', [HomeController::class, 'index']);
-Router::get('/prueba/:id', [HomeController::class, 'prueba']);
+Router::get('/', [AuthController::class, 'authUser']);
+Router::post('/', [AuthController::class, 'authUser']);
 
-//Router::get("/", [LoginController::class, "login"]);
-//$router->post("/", [LoginController::class, "login"]);
-//Cerrar Sesión
-/* $router->get("/logout", [LoginController::class, "logout"]); */
-//recuperar Password
-/* $router->get("/olvide", [LoginController::class, "olvide"]);
-$router->post("/olvide", [LoginController::class, "olvide"]);
-$router->get("/recuperar", [LoginController::class, "recuperar"]);
-$router->post("/recuperar", [LoginController::class, "recuperar"]); */
-//Crear Cuenta
-/* $router->get("/crear-cuenta", [LoginController::class, "crear"]);
-$router->post("/crear-cuenta", [LoginController::class, "crear"]); */
-//Confirmar Cuenta
-/* $router->get('/confirmar-cuenta', [LoginController::class, 'confirmar']); */
-//Mensaje de confirmacion de Cuenta
-/* $router->get('/mensaje', [LoginController::class, 'mensaje']); */
+Router::get('/logout', function() {
+  session_start();
+  $_SESSION = [];
+  Router::redirect('/');
+});
+
+Router::get('/register', [AuthController::class, 'registerUser']);
+Router::post('/register', [AuthController::class, 'registerUser']);
+
+Router::get('/confirm-account/:token', [AuthController::class, 'confirmAccount']);
+Router::get('/message', function() {
+  Router::render('auth/message', 'AuthLayout', [
+    'title' => 'Mensaje de confirmación',
+  ]);
+});
+
+Router::get('/forgot-password', [AuthController::class, 'forgotPassword']);
+Router::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+Router::get('/reset-password/:token', [AuthController::class, 'resetPassword']);
+Router::post('/reset-password/:token', [AuthController::class, 'resetPassword']);
+
 
 //Area Privada
 /* $router->get('/cita', [CitaController::class, 'index']);
@@ -44,5 +49,4 @@ $router->post('/api/citas', [APIController::class, 'guardar']);
 $router->post('/api/eliminar', [APIController::class, 'eliminar']); */
 
 
-//comprueba que existan las URL y se les asigne las funciones del controller correspondiente
 Router::dispatch();

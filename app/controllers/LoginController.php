@@ -6,9 +6,9 @@ use App\Router;
 use Classes\Email;
 use App\Models\Usuario;
 
-class LoginController extends Controller {
+class LoginController{
 
-    public function login() {
+    /* public function login() {
         $alertas = [];
         $auth = new Usuario;
 
@@ -41,7 +41,7 @@ class LoginController extends Controller {
             }
         }
 
-        $alertas = Usuario::getAlert();
+        $alertas = Usuario::getAlerts();
          
         return $this->view("auth/login",[
             'alertas' => $alertas,
@@ -55,9 +55,9 @@ class LoginController extends Controller {
         $_SESSION = [];
 
         header('Location: /');
-    }
+    } */
 
-    public static function olvide( Router $router ) {
+    /* public static function olvide( Router $router ) {
         $alertas = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -86,9 +86,9 @@ class LoginController extends Controller {
         $router->render("auth/olvide", [
             'alertas' => $alertas
         ]);
-    }
+    } */
 
-    public static function recuperar( Router $router ) {
+    /* public static function recuperar( Router $router ) {
         $alertas = [];
         $error = false;
         $token = sanitize( $_GET['token'] );
@@ -119,9 +119,9 @@ class LoginController extends Controller {
             'alertas' => $alertas,
             'error' => $error
         ]);
-    }
+    } */
 
-    public static function crear( Router $router ) {
+    /* public static function crear( Router $router ) {
         $user = new Usuario;
         $alertas = [];
 
@@ -129,11 +129,11 @@ class LoginController extends Controller {
             $user->synchronize( $_POST['register'] );
             $alertas = $user->validar();
 
-            if (empty($alertas)) {
-                $resultado = /* $user->existeUsuario() ?? */ true;
+            if (empty($alertas)) { */
+                //$resultado = /* $user->existeUsuario() ?? */ true;
 
-                if (/* $resultado->num_rows */ $resultado) {
-                    $alertas = Usuario::getAlert();
+                //if (/* $resultado->num_rows */ $resultado) {
+                    /* $alertas = Usuario::getAlert();
                 } else {
                     $user->hashPassword();
                     $user->crearToken();
@@ -148,15 +148,15 @@ class LoginController extends Controller {
                     }
                 }
             }
-        }
+        } */
 
-        $router->render("auth/registro", [
+        /* $router->render("auth/registro", [
             'user' => $user,
             'alertas' => $alertas
-        ]);
-    }
+        ]); */
+    //}
 
-    public static function confirmar( Router $router ) {
+    /* public static function confirmar( Router $router ) {
         $alertas = [];
 
         $token = sanitize( $_GET['token'] );
@@ -178,12 +178,12 @@ class LoginController extends Controller {
         $router->render('auth/confirmar', [
             'alertas' => $alertas
         ]);
-    }
+    } */
 
-    public static function mensaje( Router $router ) {
+    /* public static function mensaje( Router $router ) {
 
         $router->render('auth/mensaje', [
 
         ]);
-    }
+    } */
 }

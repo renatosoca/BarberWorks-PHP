@@ -1,5 +1,5 @@
 <?php 
-namespace Classes;
+namespace Utils;
 
 use PHPMailer\PHPMailer\PHPMailer;
 

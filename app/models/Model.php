@@ -16,7 +16,7 @@
     public static function setAlert( string $type, string $message ): void {
       static::$alerts[$type][] = $message;
     }
-    public static function getAlert(): array {
+    public static function getAlerts(): array {
       return static::$alerts;
     }
     public static function valitade(): array {

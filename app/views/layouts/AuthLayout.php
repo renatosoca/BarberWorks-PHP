@@ -9,6 +9,9 @@
   <?= vite("main.ts") ?>
 </head>
 <body>
+
+  <?php include __DIR__. '/../templates/header.php' ?>
+
   <div>
     <?php echo $content; ?>
   </div>
