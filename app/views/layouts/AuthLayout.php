@@ -9,11 +9,18 @@
   <?= vite("main.ts") ?>
 </head>
 <body>
-
-  <?php include __DIR__. '/../templates/header.php' ?>
-
-  <div>
-    <?php echo $content; ?>
+  <div class="grid grid-cols-12 min-h-screen animate-fadeIn">
+    <div class="col-span-6 h-full">
+      <img
+        class="h-full w-full object-cover"
+        src="/images/1.jpg"
+        alt="Image Hero Login"
+      >
+    </div>
+  
+    <div class="col-span-6 h-full bg-black text-white flex flex-col justify-center items-center ">
+      <?php echo $content; ?>
+    </div>
   </div>
 
   <?php echo $script ?? ''; ?>

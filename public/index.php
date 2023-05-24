@@ -3,7 +3,10 @@ require_once __DIR__ . '/../app/core/app.php';
 
 use App\Router;
 use App\Controllers\AuthController;
+use App\Controllers\ServiceController;
+use App\Controllers\AppointmentController;
 
+//ROUTES PUBLICS
 Router::get('/', [AuthController::class, 'authUser']);
 Router::post('/', [AuthController::class, 'authUser']);
 
@@ -29,24 +32,25 @@ Router::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Router::get('/reset-password/:token', [AuthController::class, 'resetPassword']);
 Router::post('/reset-password/:token', [AuthController::class, 'resetPassword']);
 
+//ROUTES PRIVATES
+Router::get('/appointment', [AppointmentController::class, 'index']);
 
-//Area Privada
-/* $router->get('/cita', [CitaController::class, 'index']);
-$router->get('/admin', [AdminController::class, 'index']); */
+Router::get('/admin', [AdminController::class, 'index']);
+
 
 //CRUD
-/* $router->get('/servicio', [ServicioController::class, 'index']);
-$router->get('/servicio/crear', [ServicioController::class, 'crear']);
-$router->post('/servicio/crear', [ServicioController::class, 'crear']);
-$router->get('/servicio/editar', [ServicioController::class, 'editar']);
-$router->post('/servicio/editar', [ServicioController::class, 'editar']);
-$router->post('/servicio/eliminar', [ServicioController::class, 'eliminar']); */
+Router::get('/servicio', [ServiceController::class, 'index']);
+Router::get('/servicio/crear', [ServiceController::class, 'crear']);
+Router::post('/servicio/crear', [ServiceController::class, 'crear']);
+Router::get('/servicio/editar', [ServiceController::class, 'editar']);
+Router::post('/servicio/editar', [ServiceController::class, 'editar']);
+Router::post('/servicio/eliminar', [ServiceController::class, 'eliminar']);
 
 
 //API de Citas
-/* $router->get('/api/servicios', [APIController::class, 'index']);
-$router->post('/api/citas', [APIController::class, 'guardar']);
-$router->post('/api/eliminar', [APIController::class, 'eliminar']); */
+Router::get('/api/servicios', [APIController::class, 'index']);
+Router::post('/api/citas', [APIController::class, 'guardar']);
+Router::post('/api/eliminar', [APIController::class, 'eliminar']);
 
 
 Router::dispatch();

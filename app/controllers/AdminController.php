@@ -1,13 +1,15 @@
 <?php
 namespace Controller;
 
-use Model\CitasServicios;
-use Router\Router;
+use App\Router;
+use App\Models\CitasServicios;
 
 class AdminController {
-    public static function index( Router $router ) {
+
+    public function index() {
         session_start();
-        isAdmin();
+        $isAdmin = isAdmin();
+        if (!$isAdmin) Router::redirect('/');
 
         $fecha = $_GET['date'] ?? date('Y-m-d');
         $fechas = explode("-", $fecha);
@@ -22,11 +24,11 @@ class AdminController {
         $consulta .= " INNER JOIN usuarios u ON c.usuarioId=u.id";
         $consulta .= " INNER JOIN citasservicios cs ON cs.citasId=c.id ";
         $consulta .= " INNER JOIN servicios s ON cs.servicioId=s.id ";
-        $consulta .= " WHERE fecha =  '${fecha}' ";
+        $consulta .= " WHERE fecha =  '{$fecha}' ";
 
-        $citas = CitasServicios::SQL($consulta);
+        $citas = CitasServicios::Prepare($consulta);
 
-        $router->render('admin/index', [
+        Router::render('admin/index', '', [
             'nombre' => $_SESSION['nombre'],
             'citas' => $citas,
             'fecha' => $fecha

@@ -129,8 +129,8 @@ function cssTag(string $entry): string {
 // Helpers to locate files
 
 function getManifest(): array {
-    $content = file_get_contents(__DIR__ . '/dist/manifest.json');
-    return json_decode($content, true);
+  $content = file_get_contents(__DIR__ . '/../public/dist/manifest.json');
+  return json_decode($content, true);
 }
 
 function assetUrl(string $entry): string {

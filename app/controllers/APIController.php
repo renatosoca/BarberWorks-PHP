@@ -1,21 +1,21 @@
 <?php 
 namespace Controller;
 
-use Model\Cita;
-use Model\CitaServicio;
-use Model\Servicio;
+use App\Models\Appointment;
+use App\Models\AppointmentsDetails;
+use App\Models\Service;
 
 class APIController {
 
     public static function index() {
-        $servicio = Servicio::all();
+        $servicio = Service::findAll();
         echo json_encode($servicio);
     }
 
     public static function guardar() {
         //Almacena la Cita y devuelve el ID
-        $cita = new Cita($_POST);
-        $resultado = $cita->guardar();
+        $cita = new Appointment($_POST);
+        $resultado = $cita->save();
         $idCita = $resultado['id'];
 
         //Almacena la Cita y el Servicio
@@ -25,8 +25,8 @@ class APIController {
                 'citasId' => $idCita,
                 'servicioId' => $idservicio
             ];
-            $citaServicio = new CitaServicio($args);
-            $citaServicio->guardar();
+            $citaServicio = new AppointmentsDetails($args);
+            $citaServicio->save();
         }
 
         echo json_encode(['resultado' => $resultado]);
@@ -35,7 +35,7 @@ class APIController {
     public static function eliminar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
-            $cita = Cita::find($id);
+            $cita = Appointment::findById($id);
             $cita->eliminar();
 
             header('Location:'. $_SERVER['HTTP_REFERER']);
