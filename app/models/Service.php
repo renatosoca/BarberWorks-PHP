@@ -4,8 +4,8 @@ namespace App\Models;
 
 class Service extends Model {
 
-  protected static string $tabla = 'services';
-  protected static array $columnasDB = ['id', 'title', 'price'];
+  protected static string $table = 'services';
+  protected static array $columnsDB = ['id', 'title', 'price'];
 
   public string $id;
   public string $title;

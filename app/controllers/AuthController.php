@@ -7,36 +7,32 @@ use App\Models\User;
 
 class AuthController {
 
-  public function authUser(){
+  public static function authUser(){
     $alerts = [];
-    $user = new User();
+    $tempUser = new User();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $user = new User($_POST['login']);
-      $alerts = $user->validateUser();
+      $tempUser = new User($_POST['login']);
+      $alerts = $tempUser->validateUser();
 
       if (empty($alerts)) {
-        $user = User::findOne('email', $user->email);
-        if ($user) {
-          if ($user->verifyPassword($user->password)) {
-            session_start();
-            $_SESSION['userId'] = $user->id;
-            $_SESSION['name'] = $user->name;
-            $_SESSION['lastname'] = $user->lastname;
-            $_SESSION['email'] = $user->email;
-            $_SESSION['login'] = true;
+        $user = User::findOne('email', $tempUser->email);
 
-            if ($user->role !== 'admin') Router::redirect('/appointment');
-            
-            $_SESSION['admin'] = $user->role;
-            Router::redirect('/admin');
-          }
-          
-          User::setAlert('error', 'Email o contraseña incorrectos');
+        if (!$user) return User::setAlert('error', 'No hay ningún usuario registrado con ese email');
+        if (!$user->verifyPassword($tempUser->password)) return User::setAlert('error', 'Email o contraseña incorrectos');
+        if (!$user->hasVerifiedEmail) return User::setAlert('error', 'Debes verificar tu email antes de iniciar sesión');
+        
+        session_start();
+        $_SESSION['userId'] = $user->id;
+        $_SESSION['name'] = $user->name;
+        $_SESSION['lastname'] = $user->lastname;
+        $_SESSION['email'] = $user->email;
+        $_SESSION['login'] = true;
 
-        } else {
-          User::setAlert('error', 'No hay ningún usuario registrado con ese email');
-        }
+        if ($user->role !== 'admin') return Router::redirect('/appointment');
+        
+        $_SESSION['admin'] = $user->role;
+        Router::redirect('/admin');
       }
     }
 
@@ -45,7 +41,7 @@ class AuthController {
     Router::render('auth/login', 'AuthLayout', [
       'title' => 'Iniciar sesión',
       'alerts' => $alerts,
-      'user' => $user,
+      'user' => $tempUser,
     ]);
   }
 
@@ -55,25 +51,26 @@ class AuthController {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $user->synchronize($_POST['register']);
-      $alerts = $user->valitade();
+      $alerts = $user->validateData();
 
       if (empty($alerts)) {
-        $userExist = USer::findOne('email', $user->email);
-        if ($userExist) {
-          $alerts = User::getAlerts();
-        } else {
-          $user->hashPassword();
-          $user->generateToken();
+        $userExist = User::findOne('email', $user->email);
 
-          //Send Mail
+        if ($userExist) return User::setAlert('error', 'Ya existe un usuario registrado con ese email');
 
-          $user->save();
-          
-          Router::redirect('/message-register');
-        }
+        $user->hashPassword();
+        $user->generateToken();
+
+        //Send Mail
+
+        $user->save();
+        
+        Router::redirect('/message');
       }
     }
 
+    $alerts = User::getAlerts();
+    
     Router::render('auth/register', 'AuthLayout', [
       'title' => 'Registro de usuario',
       'user' => $user,
@@ -81,20 +78,24 @@ class AuthController {
     ]);
   }
 
-  public function confirmAccount( $token = '') {
+  public static function confirmAccount( $token = '') {
     $alerts = [];
     $token = sanitize($token);
-    $auth = User::findOne('token', $token);
+    $isVerified = false;
+    $user = User::findOne('token', $token);
 
-    if ($auth && !$auth->token) {
-      $auth->hasVerifiedEmail = true;
-      $auth->token = '';
+    if (!$user) User::setAlert('error', 'El token es inválido o ya ha sido utilizado');
+    if ($user && $user->hasVerifiedEmail) User::setAlert('error', "El correo electrónico: {$user->email} ya ha sido verificado anteriormente");
 
-      $auth->save();
+    if ($user && !$user->hasVerifiedEmail) {
+      $user->hasVerifiedEmail = true;
+      $user->token = '';
+      
+      $user->save();
 
-      User::setAlert('success', 'Tu cuenta ha sido verificada');
-    } else {
-      User::setAlert('error', 'El token es inválido');
+      $isVerified = true;
+
+      User::setAlert('success', 'Tu cuenta ha sido verificada correctamente');
     }
 
     $alerts = User::getAlerts();
@@ -102,10 +103,11 @@ class AuthController {
     Router::render('auth/confirmAccount', 'AuthLayout', [
       'title' => 'Confirmar cuenta',
       'alerts' => $alerts,
+      'isVerified' => $isVerified,
     ]);
   }
 
-  public function forgotPassword() {
+  public static function forgotPassword() {
     $alerts = [];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -115,16 +117,15 @@ class AuthController {
       if (empty($alerts)) {
         $user = User::findOne('email', $user->email);
 
-        if ($user && $user->hasVerifiedEmail) {
-          $user->generateToken();
-          $user->save();
+        if (!$user) return User::setAlert('error', 'No hay ningún usuario registrado con ese email');
+        if (!$user->hasVerifiedEmail) return User::setAlert('error', 'Debes verificar tu email antes de recuperar tu contraseña');
+        
+        $user->generateToken();
+        $user->save();
 
-          //Send Mail
+        //Send Mail
 
-          User::setAlert('success', 'Hemos enviado las instrucciones a tu Email');
-        } else {
-          User::setAlert('error', 'No hay ningún usuario registrado con ese email');
-        }
+        User::setAlert('success', 'Hemos enviado las instrucciones a tu Email');
       }
     }
 
@@ -136,7 +137,7 @@ class AuthController {
     ]);
   }
 
-  public function resetPassword( $token = '' ) {
+  public static function resetPassword( $token = '' ) {
     $alerts = [];
     $token = sanitize($token);
     $error = false;
@@ -148,7 +149,7 @@ class AuthController {
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$error) {
-      $tempUser = new User($_POST['newPassword']);
+      $tempUser = new User($_POST['reset']);
       $alerts = $tempUser->validatePassword();
 
       if (empty($alerts)) {

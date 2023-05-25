@@ -12,9 +12,9 @@
     <label for="email" class="text-base">Email</label>
     <input
       class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
-      type="text"
+      type="email"
       id="email"
-      name="register[email]"
+      name="forgot[email]"
       placeholder="Ingresa tu correo electrónico"
     />
   </div>

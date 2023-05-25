@@ -26,7 +26,7 @@ class Router {
 
     foreach (self::$routes[$method] as $route => $callback) {
       if(strpos($route,":")){
-        $route = preg_replace("#:[a-zA-Z1-9]+#","([a-zA-Z1-9]+)",$route);
+        $route = preg_replace("#:[a-zA-Z0-9]+#","([a-zA-Z0-9]+)",$route);
       }
       
       if(preg_match("#^$route$#",$validUri,$matches)){
@@ -64,7 +64,9 @@ class Router {
       ob_start();
       include_once __DIR__ . "/views/$view.php";
       $content = ob_get_clean();
-      include_once __DIR__ . "/views/layouts/$layout.php";
+
+      if( file_exists(__DIR__ . "/views/layouts/$layout.php") ) include_once __DIR__ . "/views/layouts/$layout.php";
+  
       return $content;
     }
     echo 'Developer error: View not found';

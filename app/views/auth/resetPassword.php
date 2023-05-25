@@ -1,25 +1,34 @@
-<h1 class="nombre-pagina">Recuperar Password</h1>
-<p class="descripcion-pagina">Coloca tu nuevo password a continuacion</p>
+<h1 class="text-center text-4xl font-bold font-Jakarta pb-4">Reestablecer contraseña</h1>
+<p class="text-center font-medium">Coloca tu nueva contraseña a continuación</p>
 
-<?php include_once __DIR__ .'/../templates/alertas.php';
+<?php include_once __DIR__ .'/../templates/alerts.php';
   if ($error) return;
 ?>
 
-<form clas="formulario" method="POST">
+<form   
+  class="max-w-lg w-full mx-auto rounded-md flex flex-col gap-3 py-10"
+  method="POST"
+>
   <div class="campo">
-    <label for="pass">Password</label>
-    <input 
+    <label for="password" class="text-base">Contraseña</label>
+    <input
+      class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
       type="password"
-      id="pass"
-      name="recuperar[pass]"
-      placeholder="Ingresa tu Nuevo Password"
+      id="password"
+      name="reset[password]"
+      placeholder="Ingresa tu nueva contraseña"
     />
   </div>
 
-  <input type="submit" class="btn" value="Reestablecer Password">
+  <button 
+    type="submit" 
+    class="py-2 px-10 rounded-md w-full bg-blue-800 mt-5 hover:bg-blue-700 transition-colors duration-300 ease-in-out text-white font-medium"
+  >
+    Reestablecer contraseña
+  </button>
 </form>
 
-<div class="acciones">
-  <a href="/">¿Ya tienes una cuenta? Inicia Sesión</a>
-  <a href="/crear-cuenta">¿Aún no tienes una cuenta? Crear una</a>
+<div class="max-w-lg w-full flex flex-col gap-3 items-center justify-between">
+  <p>¿Ya tienes una cuenta? <a href="/">Inicia Sesión</a></p>
+  <p>¿Aún no tienes una cuenta? <a href="/register">Crear una</a></p>
 </div>

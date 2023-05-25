@@ -1,7 +1,9 @@
 <h1 class="text-center text-4xl font-bold font-Jakarta pb-4">Iniciar Sesión</h1>
-<p class="text-center font-medium">Inicia Sesión con tus datos</p>
+<p class="text-center font-medium pb-4">Inicia Sesión con tus datos</p>
 
-<?php include_once __DIR__.'/../templates/alerts.php'; ?>
+<div class="flex flex-col gap-2 max-w-lg w-full mx-auto">
+  <?php include_once __DIR__.'/../templates/alerts.php'; ?>
+</div>
 
 <form 
   class="max-w-lg w-full mx-auto rounded-md flex flex-col gap-3 py-10" 
@@ -16,6 +18,7 @@
       id="email"
       name="login[email]"
       placeholder="Ingresa tu correo"
+      value="<?php echo $user->email ?? '' ?>"
     />
   </div>
 
@@ -39,7 +42,7 @@
   </button>
 </form>
 
-<div class="max-w-lg w-full flex gap-2 justify-between">
+<div class="max-w-lg w-full mx-auto flex gap-2 justify-between">
   <p>¿Aún no tienes una cuenta? <a href="/register">Crear una</a></p>
   <a href="/forgot-password">¿Olvidaste tu Password?</a>
 </div>

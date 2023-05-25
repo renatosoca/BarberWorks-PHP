@@ -32,6 +32,10 @@ class ConnectionDB {
   public function connect(): null | PDO {
     return $this->connect;
   }
+
+  /* public function prepare(string $query): PDOStatement {
+    return $this->connect->prepare($query);
+  } */
 }
 
 ?>

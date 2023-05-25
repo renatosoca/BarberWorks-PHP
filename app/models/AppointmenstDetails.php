@@ -4,8 +4,8 @@ namespace App\Models;
 
 class AppointmentsDetails extends Model {
 
-  protected static string $tabla = 'appointments_details';
-  protected static array $columnasDB = ['id', 'appointment_id', 'service_id'];
+  protected static string $table = 'appointments_details';
+  protected static array $columnsDB = ['id', 'appointment_id', 'service_id'];
 
   public string $id;
   public string $appointment_id;

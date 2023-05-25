@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Models;
 
-
 class CitasServicios extends Model {
-  protected static $tabla = 'appointments_details';
-  protected static $columnasDB = ['id', 'hora', 'cliente', 'email', 'telefono', 'servicio', 'precio'];
+  protected static $table = 'appointments_details';
+  protected static $columnsDB = ['id', 'hora', 'cliente', 'email', 'telefono', 'servicio', 'precio'];
 
   public $id;
   public $hora;
@@ -22,5 +22,5 @@ class CitasServicios extends Model {
     $this->telefono = $args['telefono'] ?? '';
     $this->servicio = $args['servicio'] ?? '';
     $this->precio = $args['precio'] ?? '';
-}
+  }
 }

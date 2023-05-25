@@ -11,7 +11,7 @@ $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->safeLoad();
 
 $connection = new ConnectionDB();
-$connection->connect();
+$connection = $connection->connect();
 
 Model::setDataBase( $connection );
 
