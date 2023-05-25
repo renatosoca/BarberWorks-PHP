@@ -10,11 +10,11 @@
   <?= vite("main.ts") ?>
 </head>
 <body>
-  <div class="grid grid-cols-12 h-screen animate-fadeIn">
+  <div class="grid grid-cols-12 h-screen animate-fadeIn overflow-hidden">
     <div class="col-span-6 h-full">
       <img
         class="h-full w-full object-cover"
-        src="/images/1.jpg"
+        src="/images/hero-auth.jpg"
         alt="Image Hero Login"
       >
     </div>
@@ -27,7 +27,5 @@
       </div>
     </div>
   </div>
-
-  <?php echo $script ?? ''; ?>
 </body>
 </html>

@@ -20,11 +20,9 @@ function isFinal(string $currency, string $next): bool {
 }
 
 function isAuth(): bool {
-  if (!isset($_SESSION['login'])) {
-    return false;
-  }
+  if (!isset($_SESSION)) session_start();
   
-  return true;
+  return isset($_SESSION['login']);
 }
 
 function isAdmin(): bool {
@@ -33,6 +31,12 @@ function isAdmin(): bool {
   }
 
   return true;
+}
+
+function isLinkActive(string $link): bool {
+  $current = $_SERVER['REQUEST_URI'];
+
+  return ($current === $link);
 }
 
 // Helpers here serve as example. Change to suit your needs.

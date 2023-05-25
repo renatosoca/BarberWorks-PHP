@@ -1,8 +1,6 @@
 <h1 class="nombre-pagina">Citas</h1>
 <p class="descripcion-pagina">Elige tus servicios y coloca tus datos</p>
 
-<?php include_once __DIR__.'/../templates/navegacion.php'; ?>
-
 <div id="app">
     <nav class="tabs">
         <button class="actual" type="button" data-paso="1" >Servicios</button>
@@ -21,10 +19,10 @@
         <p class="text-center" >Coloca tus datos y fecha de tu cita</p>
 
         <form action="" class="formulario">
-            <input type="hidden" id="id" value="<?php echo $id ?>">
+            <input type="hidden" id="id" value="<?php echo $userId ?>">
             <div class="campo">
                 <label for="nombre">Nombre</label>
-                <input type="text" name="cita[nombre]" id="nombre" placeholder="Tu Nombre" value="<?php echo s($nombre); ?>" disabled>
+                <input type="text" name="cita[nombre]" id="nombre" placeholder="Tu Nombre" value="<?php echo sanitize($name); ?>" disabled>
             </div>
 
             <div class="campo">
@@ -51,8 +49,8 @@
 </div>
 
 <?php 
-    $script = "
-        <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-        <script src='src/js/app.js'></script>
-    "; 
+    //$script = "
+    //    <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    //    <script src='build/js/app.js'></script>
+    //"; 
 ?>

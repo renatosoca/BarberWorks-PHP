@@ -8,6 +8,9 @@ use App\Models\User;
 class AuthController {
 
   public static function authUser(){
+    $isAuth = isAuth();
+    if ($isAuth) Router::redirect('/appointment');
+
     $alerts = [];
     $tempUser = new User();
 
@@ -22,7 +25,6 @@ class AuthController {
         if (!$user->verifyPassword($tempUser->password)) return User::setAlert('error', 'Email o contraseña incorrectos');
         if (!$user->hasVerifiedEmail) return User::setAlert('error', 'Debes verificar tu email antes de iniciar sesión');
         
-        session_start();
         $_SESSION['userId'] = $user->id;
         $_SESSION['name'] = $user->name;
         $_SESSION['lastname'] = $user->lastname;
@@ -46,6 +48,9 @@ class AuthController {
   }
 
   public static function registerUser() {
+    $isAuth = isAuth();
+    if ($isAuth) Router::redirect('/appointment');
+
     $user = new User();
     $alerts = [];
 
@@ -79,6 +84,9 @@ class AuthController {
   }
 
   public static function confirmAccount( $token = '') {
+    $isAuth = isAuth();
+    if ($isAuth) Router::redirect('/appointment');
+    
     $alerts = [];
     $token = sanitize($token);
     $isVerified = false;

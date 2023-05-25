@@ -1,5 +1,5 @@
 <?php 
-namespace Controller;
+namespace App\Controllers;
 
 use App\Models\Appointment;
 use App\Models\AppointmentsDetails;
@@ -7,9 +7,10 @@ use App\Models\Service;
 
 class APIController {
 
-    public static function index() {
-        $servicio = Service::findAll();
-        echo json_encode($servicio);
+    public static function services() {
+        $services = Service::findAll();
+        
+        echo json_encode($services);
     }
 
     public static function guardar() {

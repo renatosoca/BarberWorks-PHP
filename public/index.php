@@ -5,13 +5,13 @@ use App\Router;
 use App\Controllers\AuthController;
 use App\Controllers\ServiceController;
 use App\Controllers\AppointmentController;
+use App\Controllers\APIController;
 
 //ROUTES PUBLICS
 Router::get('/', [AuthController::class, 'authUser']);
 Router::post('/', [AuthController::class, 'authUser']);
 
 Router::get('/logout', function() {
-  session_start();
   $_SESSION = [];
   Router::redirect('/');
 });
@@ -34,6 +34,7 @@ Router::post('/reset-password/:token', [AuthController::class, 'resetPassword'])
 
 //ROUTES PRIVATES
 Router::get('/appointment', [AppointmentController::class, 'index']);
+Router::get('/create-appointment', [AppointmentController::class, 'createAppointment']);
 
 Router::get('/admin', [AdminController::class, 'index']);
 
@@ -48,7 +49,7 @@ Router::post('/servicio/eliminar', [ServiceController::class, 'eliminar']);
 
 
 //API de Citas
-Router::get('/api/servicios', [APIController::class, 'index']);
+Router::get('/api/v1/services', [ServiceController::class, 'getAllServices']);
 Router::post('/api/citas', [APIController::class, 'guardar']);
 Router::post('/api/eliminar', [APIController::class, 'eliminar']);
 

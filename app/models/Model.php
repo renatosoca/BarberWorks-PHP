@@ -29,7 +29,7 @@ class Model {
     $query = "SELECT * FROM ". static::$table;
     $result = self::PrepareSQL( $query );
 
-    return !empty($result) ? $result : [];
+    return $result;
   }
   public static function findById( string $id ): object {
     $query = "SELECT * FROM ". static::$table . " WHERE id = {$id} LIMIT 1";

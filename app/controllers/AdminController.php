@@ -7,7 +7,6 @@ use App\Models\CitasServicios;
 class AdminController {
 
     public function index() {
-        session_start();
         $isAdmin = isAdmin();
         if (!$isAdmin) Router::redirect('/');
 
