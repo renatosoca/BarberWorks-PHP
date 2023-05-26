@@ -12,7 +12,10 @@ Router::get('/', [AuthController::class, 'authUser']);
 Router::post('/', [AuthController::class, 'authUser']);
 
 Router::get('/logout', function() {
+  session_start();
+
   $_SESSION = [];
+  
   Router::redirect('/');
 });
 

@@ -3,62 +3,76 @@
 <div class="w-full px-4 py-6 text-white">
 
   <div class="pt-4" >
-    <h2>Agendar una cita</h2>
-
     <div 
-      class="relative flex gap-4 max-w-max font-semibold py-8 before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:w-full before:bg-white before:text-white before:h-1"
-      id="containers-taps"
+      class="relative flex gap-10 max-w-max font-semibold py-8 before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:w-full before:bg-white before:text-white before:h-[.15rem]"
+      id="container-tabs"
     >
       <button 
-        class="px-4 py-1 rounded-full bg-blue-500 z-10 actual"
+        class="w-10 h-10 rounded-full bg-blue-500 z-10 actual"
         type="button" 
-        data-paso="1"
+        data-tab="1"
       >
-        Servicios
+        1
       </button>
       
       <button 
-        class="px-4 py-1 rounded-full bg-blue-300 text-black z-10"
+        class="w-10 h-10 rounded-full bg-blue-300 text-black z-10"
         type="button" 
-        data-paso="2"
+        data-tab="2"
       >
-        Información Cita
+        2
       </button>
       
       <button 
-        class="px-4 py-1 rounded-full bg-blue-300 text-black z-10"
+        class="w-10 h-10 rounded-full bg-blue-300 text-black z-10"
         type="button" 
-        data-paso="3"
+        data-tab="3"
       >
-        Resumen
+        3
       </button>
     </div>
 
-    <div class="" id="paso-1">
-      <h2 class="pb-8 text-xl font-Jakarta font-medium" >Elige tus servicios a continuación</h2>
+    <div class="" id="section-1">
+      <h2 class="pb-4 text-4xl font-Jakarta font-bold" >Configura tu cita</h2>
+      <h2 class="pb-8 text-xl font-Jakarta font-medium" >Elige uno o más servicios a continuación</h2>
       <div class="grid grid-cols-12 gap-4 w-full" id="services"></div>
     </div>
 
-    <div class="hidden" id="paso-2">
-      <h2 class="pb-8 text-xl font-Jakarta font-medium" >Coloca tus datos y fecha de tu cita</h2>
+    <div class="hidden" id="section-2">
+      <h2 class="pb-8 text-4xl font-Jakarta font-bold" >Selecciona tu fecha y hora</h2>
 
       <form action="" class="formulario">
         <input type="hidden" id="userId" value="<?php echo $userId ?>">
 
-        <div class="campo">
-          <label for="name" class="text-base">Nombre</label>
-          <input
-            class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
-            type="text"
-            id="name"
-            name="appointment[name]"
-            placeholder="Ingresa tu nombre completo"
-            value="<?php echo sanitize($name); ?>"
-            disabled
-          />
+        <div class="flex gap-4 w-full">
+          <div class="w-full">
+            <label for="name" class="text-base">Nombre</label>
+            <input
+              class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
+              type="text"
+              id="name"
+              name="appointment[name]"
+              placeholder="Ingresa tu nombre completo"
+              value="<?php echo sanitize($name); ?>"
+              disabled
+            />
+          </div>
+  
+          <div class="w-full">
+            <label for="lastname" class="text-base">Apellido</label>
+            <input
+              class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
+              type="text"
+              id="lastname"
+              name="appointment[lastname]"
+              placeholder="Ingresa tu apellido completo"
+              value="<?php echo sanitize($lastname); ?>"
+              disabled
+            />
+          </div>
         </div>
 
-        <div class="campo">
+        <div class="">
           <label for="date" class="text-base">Fecha de la cita</label>
           <input
             class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
@@ -69,7 +83,7 @@
           />
         </div>
 
-        <div class="campo">
+        <div class="">
           <label for="time" class="text-base">Hora de la cita</label>
           <input
             class="w-full py-2 px-3 rounded-md text-black font-medium outline-none"
@@ -81,9 +95,11 @@
       </form>
     </div>
 
-    <div class="hidden contenido-resumen" id="paso-3">
+    <div class="hidden contenido-resumen" id="section-3">
       <h2 class="text-xl font-Jakarta font-medium" >Confirmar cita</h2>
       <p class="pt-2 pb-8 text-sm font-Jakarta font-medium" >Verifica que la información sea correcta</p>
+
+      <div class=" " id="contentResumen"></div>
     </div>
 
     <div class="flex justify-between pt-10 text-base font-semibold">
@@ -94,8 +110,8 @@
 </div>
 
 <?php 
-  $script = "
-    <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script src='build/js/app.js'></script>
-  "; 
+  //$script = "
+  //  <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+  //  <script src='build/js/app.js'></script>
+  //"; 
 ?>
