@@ -1,71 +1,112 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Service;
 use App\Router;
+use App\Models\Service;
+use App\Models\Appointment;
+use App\Models\AppointmentsDetails;
 
 class ServiceController {
 
-  public static function getAllServices() {
+  public function getAllServices() {
     $services = Service::findAll();
 
     return $services;
   }
+  public function saveAppointment() {
+    
+    $appointment = new Appointment($_POST);
+    $savedAppointment = $appointment->save();
+    $appointmentID = $savedAppointment['id'];
+
+    $servicesID = json_decode($_POST['services']);
+    $servicesID = array_map('stripslashes', $servicesID);
+    foreach ($servicesID as $serviceID) {
+      $args = [
+        'appointment_id' => $appointmentID,
+        'service_id' => $serviceID
+      ];
+      $appointmentDetail = new AppointmentsDetails($args);
+      $appointmentDetail->insert();
+    }
+
+    return ($servicesID);
+  }
+  public  function deleteAppointment() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $id = $_POST['id'];
+      $appointment = Appointment::findById($id);
+      $appointment->eliminar();
+
+      header('Location:'. $_SERVER['HTTP_REFERER']);
+    }
+  }
+
 
   public static function index() {
 
     $isAdmin = isAdmin();
     if (!$isAdmin) Router::redirect('/');
 
-    $servicios = Service::findAll();
+    $services = Service::findAll();
 
-    Router::render('admin/servicios', '', [
-      'nombre' => $_SESSION['nombre'],
-      'servicios' => $servicios
+    Router::render('admin/services', 'AdminLayout', [
+      'title' => 'Listado de servicios',
+      'name' => $_SESSION['name'],
+      'lastname' => $_SESSION['lastname'],
+      'services' => $services
     ]);
   }
 
-  public static function crear() {
-    isAdmin();
-    $alertas = [];
+  public static function create() {
+    $isAdmin = isAdmin();
+    if (!$isAdmin) Router::redirect('/');
 
-    $servicio = new Service;
+    $alerts = [];
+
+    $service = new Service();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $servicio = new Service($_POST);
-      $alertas = $servicio->validate();
-      if (empty($alertas)) {
-        $servicio->save();
-        header('Location: /servicio/crear');
+      $service = new Service($_POST);
+      $alerts = $service->validate();
+      if (empty($alerts)) {
+        $service->save();
+        header('Location: /admin/service/create');
       }
     }
     
-    Router::render('admin/crear', '', [
-      'nombre' => $_SESSION['nombre'],
-      'servicio' => $servicio,
-      'alertas' => $alertas
+    Router::render('admin/crear', 'AdminLayout', [
+      'title' => 'Crear servicio',
+      'name' => $_SESSION['name'],
+      'lastname' => $_SESSION['lastname'],
+      'service' => $service,
+      'alerts' => $alerts
     ]);
   }
 
-  public static function editar() {
-    isAdmin();
-    $alertas = [];
-    if (!is_numeric( $_GET['id'])) return;
+  public static function update( $id = '') {
+    $isAdmin = isAdmin();
+    if (!$isAdmin) Router::redirect('/');
+    $alerts = [];
 
-    $servicio = Service::findById( $_GET['id'] );
+    $service = Service::findById( $id );
+    if (!$service) Router::redirect('/admin/services');
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $servicio->syncronize($_POST);
-      $alertas = $servicio->validate();
+      $service->syncronize($_POST);
+      $alerts = $service->validate();
 
-      if (empty($alertas)) {
-      $servicio->save();
-      header('Location: /servicio');
+      if (empty($alerts)) {
+        $service->save();
+        header('Location: /admin/services');
       }
     }
     
-    Router::render('admin/editar', '', [
-      'nombre' => $_SESSION['nombre'],
-      'servicio' => $servicio,
-      'alertas' => $alertas
+    Router::render('admin/editar', 'AdminLayout', [
+      'title' => $service->title,
+      'name' => $_SESSION['name'],
+      'lastname' => $_SESSION['lastname'],
+      'alerts' => $alerts,
+      'service' => $service,
     ]);
   }
 

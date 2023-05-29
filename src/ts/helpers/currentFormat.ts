@@ -1,4 +1,5 @@
-export const formatDate = (date: string) => {
+export const formatDate = (date: string): string | null => {
+  if (!date) return null;
   const FechaObj = new Date(date);
   const month = FechaObj.getMonth();
   const day = FechaObj.getDate() + 2;

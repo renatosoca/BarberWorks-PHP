@@ -1,6 +1,6 @@
 <?php include_once __DIR__.'/../templates/sideBar.php' ?>
 
-<div class="w-full px-4 py-6 text-white">
+<div class="w-full px-4 py-6 text-white" id="create-Appointment">
 
   <div class="pt-4" >
     <div 
@@ -96,10 +96,9 @@
     </div>
 
     <div class="hidden contenido-resumen" id="section-3">
-      <h2 class="text-xl font-Jakarta font-medium" >Confirmar cita</h2>
-      <p class="pt-2 pb-8 text-sm font-Jakarta font-medium" >Verifica que la información sea correcta</p>
+      <h2 class="pb-8 text-4xl font-Jakarta font-bold" >Confirmar cita</h2>
 
-      <div class=" " id="contentResumen"></div>
+      <div class="flex flex-col gap-1" id="contentResumen"></div>
     </div>
 
     <div class="flex justify-between pt-10 text-base font-semibold">

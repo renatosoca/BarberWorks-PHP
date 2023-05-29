@@ -3,24 +3,24 @@
 namespace App\Models;
 
 class CitasServicios extends Model {
-  protected static $table = 'appointments_details';
-  protected static $columnsDB = ['id', 'hora', 'cliente', 'email', 'telefono', 'servicio', 'precio'];
+  protected static string $table = 'appointments_details';
+  protected static array $columnsDB = ['id', 'appointment_time', 'client', 'email', 'phone', 'service', 'price'];
 
-  public $id;
-  public $hora;
-  public $cliente;
+  public string $id;
+  public $appointment_time;
+  public $client;
   public $email;
-  public $telefono;
-  public $servicio;
-  public $precio;
+  public $phone;
+  public $service;
+  public $price;
 
   function __construct($args = []) {
     $this->id = $args['id'] ?? '';
-    $this->hora = $args['hora'] ?? '';
-    $this->cliente = $args['cliente'] ?? '';
+    $this->appointment_time = $args['appointment_time'] ?? '';
+    $this->client = $args['client'] ?? '';
     $this->email = $args['email'] ?? '';
-    $this->telefono = $args['telefono'] ?? '';
-    $this->servicio = $args['servicio'] ?? '';
-    $this->precio = $args['precio'] ?? '';
+    $this->phone = $args['phone'] ?? '';
+    $this->service = $args['service'] ?? '';
+    $this->price = $args['price'] ?? '';
   }
 }

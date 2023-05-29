@@ -6,7 +6,22 @@
     <p class="text-sm font-medium text-gray-200" >Estamos aquí para ayudarte</p>
   </div>
 
-  <div class="pt-4" >
-    <h2>Tus proximas citas</h2>
+  <h2 class="text-xl font-bold font-Jakarta my-6">Tus proximas citas</h2>
+
+  <div class="" >
+
+    <?php foreach ($appointments as $appointment): ?>
+      <div class="bg-[#001E3C] rounded-md shadow-md p-4 my-4 ">
+        <div class="flex justify-between">
+          <div>
+            <p class="text-xl font-bold">Fecha: <?php echo ($appointment->appointment_date) ?></p>
+            <p class="text-sm font-medium"><?php echo $appointment->appointment_time ?></p>
+          </div>
+          <div>
+            <p class="text-xl font-bold">Hora: <?php echo $appointment->appointment_time ?></p>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
   </div>
 </div>

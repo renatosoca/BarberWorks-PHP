@@ -1,5 +1,5 @@
 <?php
-namespace Controller;
+namespace App\Controllers;
 
 use App\Router;
 use App\Models\CitasServicios;
@@ -14,22 +14,24 @@ class AdminController {
         $fechas = explode("-", $fecha);
         
         if( !$fechas = checkdate( $fechas[1], $fechas[2], $fechas[0]) ) {
-            header('Location: /404');
+          header('Location: /404');
         }
 
-        $consulta = "SELECT c.id, c.hora, CONCAT(u.nombre, ' ' ,u.apellido) as cliente, ";
-        $consulta .= " u.email, u.telefono, s.nombre as servicio, s.precio  ";
-        $consulta .= " FROM citas c ";
-        $consulta .= " INNER JOIN usuarios u ON c.usuarioId=u.id";
-        $consulta .= " INNER JOIN citasservicios cs ON cs.citasId=c.id ";
-        $consulta .= " INNER JOIN servicios s ON cs.servicioId=s.id ";
-        $consulta .= " WHERE fecha =  '{$fecha}' ";
+        $consulta = "SELECT a.id, a.appointment_time, CONCAT(u.name, ' ' ,u.lastname) as client, ";
+        $consulta .= " u.email, u.phone, s.title as service, s.price  ";
+        $consulta .= " FROM appointments a ";
+        $consulta .= " INNER JOIN users u ON a.user_id = u.id";
+        $consulta .= " INNER JOIN appointments_Details ad ON ad.appointment_id = a.id ";
+        $consulta .= " INNER JOIN services s ON ad.service_id = s.id ";
+        $consulta .= " WHERE appointment_date =  '{$fecha}' ";
 
-        $citas = CitasServicios::Prepare($consulta);
+        $citas = CitasServicios::PrepareSQL($consulta);
 
-        Router::render('admin/index', '', [
-            'nombre' => $_SESSION['nombre'],
-            'citas' => $citas,
+        Router::render('admin/index', 'AdminLayout', [
+            'title' => 'Inicio',
+            'name' => $_SESSION['name'],
+            'lastname' => $_SESSION['lastname'],
+            'appointments' => $citas,
             'fecha' => $fecha
         ]);
     }

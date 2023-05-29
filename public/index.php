@@ -3,9 +3,9 @@ require_once __DIR__ . '/../app/core/app.php';
 
 use App\Router;
 use App\Controllers\AuthController;
+use App\Controllers\AdminController;
 use App\Controllers\ServiceController;
 use App\Controllers\AppointmentController;
-use App\Controllers\APIController;
 
 //ROUTES PUBLICS
 Router::get('/', [AuthController::class, 'authUser']);
@@ -39,22 +39,20 @@ Router::post('/reset-password/:token', [AuthController::class, 'resetPassword'])
 Router::get('/appointment', [AppointmentController::class, 'index']);
 Router::get('/create-appointment', [AppointmentController::class, 'createAppointment']);
 
-Router::get('/admin', [AdminController::class, 'index']);
+Router::get('/admin/home', [AdminController::class, 'index']);
+Router::get('/admin/services', [ServiceController::class, 'index']);
+Router::get('/admin/service/create', [ServiceController::class, 'create']);
+// Router::post('/admin/service/create', [ServiceController::class, 'create']);
 
+Router::get('/admin/services/:id', [ServiceController::class, 'update']);
 
-//CRUD
-Router::get('/servicio', [ServiceController::class, 'index']);
-Router::get('/servicio/crear', [ServiceController::class, 'crear']);
-Router::post('/servicio/crear', [ServiceController::class, 'crear']);
-Router::get('/servicio/editar', [ServiceController::class, 'editar']);
 Router::post('/servicio/editar', [ServiceController::class, 'editar']);
 Router::post('/servicio/eliminar', [ServiceController::class, 'eliminar']);
 
 
-//API de Citas
 Router::get('/api/v1/services', [ServiceController::class, 'getAllServices']);
-Router::post('/api/citas', [APIController::class, 'guardar']);
-Router::post('/api/eliminar', [APIController::class, 'eliminar']);
+Router::post('/api/v1/create-appointment', [ServiceController::class, 'saveAppointment']);
+Router::post('/api/v1/delete-appointment', [ServiceController::class, 'deleteAppointment']);
 
 
 Router::dispatch();

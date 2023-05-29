@@ -31,10 +31,13 @@ class AuthController {
         $_SESSION['email'] = $user->email;
         $_SESSION['login'] = true;
 
-        if ($user->role !== 'admin') return Router::redirect('/appointment');
+        if ($user->role === 'admin') {
+          $_SESSION['admin'] = $user->role;
+
+          return Router::redirect('/admin/home');
+        } 
         
-        $_SESSION['admin'] = $user->role;
-        Router::redirect('/admin');
+        Router::redirect('/appoitment');
       }
     }
 

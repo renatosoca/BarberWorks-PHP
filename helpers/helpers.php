@@ -26,11 +26,9 @@ function isAuth(): bool {
 }
 
 function isAdmin(): bool {
-  if (!isset($_SESSION['admin'])) {
-    return false;
-  }
+  if (!isset($_SESSION)) session_start();
 
-  return true;
+  return isset($_SESSION['admin']);
 }
 
 function isLinkActive(string $link): bool {

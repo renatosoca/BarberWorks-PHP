@@ -2,8 +2,8 @@ export interface IAppointment {
   id: string;
   name: string;
   lastname: string;
-  appointmentDate: string;
-  appointmentTime: string;
+  appointmentDate: string | null;
+  appointmentTime: string | null;
   services: IAppointmentService[];
 }
 

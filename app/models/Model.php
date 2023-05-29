@@ -25,13 +25,16 @@ class Model {
   }
 
 
-  public static function findAll(): array {
+  public static function findAll( string $column = '', string $value = '' ): array {
     $query = "SELECT * FROM ". static::$table;
+    if ( !empty($column) && !empty($value) ) {
+      $query .= " WHERE {$column} = '{$value}'";
+    }
     $result = self::PrepareSQL( $query );
 
     return $result;
   }
-  public static function findById( string $id ): object {
+  public static function findById( string $id ): object | null {
     $query = "SELECT * FROM ". static::$table . " WHERE id = {$id} LIMIT 1";
     $result = self::PrepareSQL( $query );
     

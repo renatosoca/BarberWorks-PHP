@@ -1,61 +1,74 @@
-<h1 class="nombre-pagina">Panel de Administración</h1>
+<?php include_once __DIR__.'/../templates/adminSidebar.php'; ?>
 
-<?php include_once __DIR__.'/../templates/navegacion.php'; ?>
+<div class="text-white p-6 w-full" id="list-appointments-admin">
+  <h1 class="text-3xl font-bold pb-6">Panel de Administración</h1>
+  <h2 class="text-center text-xl font-bold" >Buscar citas</h2>
 
-<h2>Buscar Citas</h2>
-<div class="busqueda">
-    <form action="" class="formulario">
-        <div class="campo">
-            <label for="fecha">Fecha</label>
-            <input type="date" name="fecha" id="fecha" value="<?php echo s($fecha) ?>">
-        </div>
+  <div class="w-full pt-6">
+    <form action="" class="text-black" id="filter-date">
+      <div class="w-full flex items-center">
+        <label for="date" class="text-white h-full pr-2" >Filtrar por fecha:</label>
+        <input
+          class="flex-1 px-4 py-1 rounded outline-none"
+          type="date" 
+          name="date" 
+          id="date" 
+          value="<?php echo sanitize($fecha) ?>"
+        >
+      </div>
     </form>
-</div>
+  </div>
 
-<?php if(count($citas) === 0) echo '<h2>No hay Citas en esta Fecha</h2>'; ?>
+  <?php if(count($appointments) === 0) echo '<h2 class="text-center text-white font-bold text-2xl pt-6">No hay appointments en esta Fecha</h2>'; ?>
 
-<div id="citas-admin">
-    <ul class="citas">
-        <?php 
-            $idCitas = 0;
-            foreach ($citas as $key => $value) { 
-                if($idCitas !== $value->id) {
-                    $total = 0;
-        ?>
-                    <li>
-                        <p>ID: <span><?php echo s($value->id); ?></span></p>
-                        <p>Hora: <span><?php echo s($value->hora); ?></span></p>
-                        <p>Cliente: <span><?php echo s($value->cliente); ?></span></p>
-                        <p>Email: <span><?php echo s($value->email); ?></span></p>
-                        <p>Telefono: <span><?php echo s($value->telefono); ?></span></p>
-                        <h3>Servicios</h3>
-        <?php
-                    $idCitas = $value->id;
-                } //Fin del If
-        ?>
-                        <p class="servicio"><span><?php echo s($value->servicio). " ". s($value->precio); ?></span></p>
-        <?php
-                $total += $value->precio;
-                $actual = $value->id;
-                $proximo = $citas[$key + 1]->id ?? 0;
+  <div id="appointments-admin">
+    <ul class="flex flex-col gap-4 pt-6">
+      <?php 
+      $idAppointments = 0;
+      foreach ($appointments as $key => $value) : 
+        if($idAppointments !== $value->id) :
+          $total = 0;
+      ?>
+          <li class="text-base text-blue-500 font-semibold grid grid-cols-12 gap-2 bg-[#001E3C] rounded px-4 py-2">
+            <div class="col-span-6">
+              <h2 class="text-white text-xl font-bold pb-2" >Datos de la cita</h2>
+              <p>Hora: <span class="text-white" ><?php echo sanitize($value->appointment_time); ?></span></p>
+              <p>Cliente: <span class="text-white" ><?php echo sanitize($value->client); ?></span></p>
+              <p>Email: <span class="text-white" ><?php echo sanitize($value->email); ?></span></p>
+              <p>Telefono: <span class="text-white" ><?php echo sanitize($value->phone); ?></span></p>
+            </div>
 
-                if (esFinal($actual, $proximo)) { 
-        ?>
-                    <p>Total: <span><?php echo $total; ?></span></p>
-                    <form action="/api/eliminar" class="formulario" method="POST">
-                        <input type="hidden" name="id" value="<?php echo $value->id ?>">
-                        <input type="submit" class="btn eliminar" value="Eliminar">
-                    </form>
-        <?php    
-                }
-            } //Fin del Foreach 
-        ?>
-                    </li>
+            <div class="col-span-6 flex flex-col">
+              <h3 class="text-white text-xl font-bold pb-2" >Servicios</h3>
+      <?php
+              $idAppointments = $value->id;
+        endif;
+      ?>
+              <p class="text-blue-300 m-0">
+                <?php echo sanitize($value->service) ?>
+                <span class="text-blue-500" >
+                  <?php echo "S/ ".(sanitize($value->price)); ?>
+                </span>
+              </p>
+      <?php
+            $total += $value->price;
+            $currency = $value->id;
+            $next = $appointments[$key + 1]->id ?? 0;
+
+              if (isFinal($currency, $next)) :
+      ?>
+                <p class="text-blue-500">Total: <span class="text-white">S/ <?php echo $total; ?></span></p>
+            </div>
+
+            <form action="/api/v1/delete-appointment" class="col-span-12" method="POST">
+              <input type="hidden" name="id" value="<?php echo $value->id ?>">
+              <input type="submit" class="bg-red-500 px-6 py-1 rounded text-white cursor-pointer" value="Eliminar">
+            </form>
+      <?php    
+              endif;
+      endforeach;
+      ?>
+          </li>
     </ul>
+  </div>
 </div>
-
-<?php
-    $script = "
-            <script src='src/js/buscador.js'></script>
-    ";
-?>

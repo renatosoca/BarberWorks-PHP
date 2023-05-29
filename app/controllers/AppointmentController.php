@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Router;
+use App\Models\Appointment;
 
 class AppointmentController {
 
@@ -10,11 +11,14 @@ class AppointmentController {
     $isAuth = isAuth();
     if (!$isAuth) Router::redirect('/');
 
+    $appointments = Appointment::findAll( 'user_id', $_SESSION['userId'] );
+
     Router::render('appointment/index', 'AppointmentLayout', [
       'title' => 'Inicio',
       'userId' => $_SESSION['userId'],
       'name' => explode(' ', $_SESSION['name'])[0],
       'lastname' => explode(' ', $_SESSION['lastname'])[0],
+      'appointments' => $appointments
     ]);
   }
 
