@@ -11,9 +11,9 @@
         <p>Titulo: <span><?php echo $row->title; ?></span></p>
         <p>Precio: <span><?php echo $row->price; ?></span></p>
         <div class="flex justify-between pt-4">
-          <a href="/admin/services/<?php echo $row->id ?>" class="bg-blue-500 px-6 py-1 rounded font-bold text-white">Editar</a>
+          <a href="/admin/service/<?php echo $row->id ?>" class="bg-blue-500 px-6 py-1 rounded font-bold text-white">Editar</a>
   
-          <form action="/servicio/eliminar" method="POST">
+          <form action="/admin/services/delete" method="POST">
             <input type="hidden" name="id" value="<?php echo $row->id; ?>">
             <input type="submit" value="Eliminar" class="bg-red-500 px-6 py-1 rounded font-bold text-white cursor-pointer">
           </form>

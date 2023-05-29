@@ -42,17 +42,14 @@ Router::get('/create-appointment', [AppointmentController::class, 'createAppoint
 Router::get('/admin/home', [AdminController::class, 'index']);
 Router::get('/admin/services', [ServiceController::class, 'index']);
 Router::get('/admin/service/create', [ServiceController::class, 'create']);
-// Router::post('/admin/service/create', [ServiceController::class, 'create']);
-
-Router::get('/admin/services/:id', [ServiceController::class, 'update']);
-
-Router::post('/servicio/editar', [ServiceController::class, 'editar']);
-Router::post('/servicio/eliminar', [ServiceController::class, 'eliminar']);
+Router::post('/admin/service/create', [ServiceController::class, 'create']);
+Router::get('/admin/service/:id', [ServiceController::class, 'update']);
+Router::post('/admin/service/:id', [ServiceController::class, 'update']);
+Router::post('/admin/services/delete', [ServiceController::class, 'delete']);
 
 
 Router::get('/api/v1/services', [ServiceController::class, 'getAllServices']);
 Router::post('/api/v1/create-appointment', [ServiceController::class, 'saveAppointment']);
 Router::post('/api/v1/delete-appointment', [ServiceController::class, 'deleteAppointment']);
-
 
 Router::dispatch();

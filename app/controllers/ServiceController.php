@@ -36,14 +36,14 @@ class ServiceController {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $id = $_POST['id'];
       $appointment = Appointment::findById($id);
-      $appointment->eliminar();
+      $appointment->delete();
 
       header('Location:'. $_SERVER['HTTP_REFERER']);
     }
   }
 
 
-  public static function index() {
+  public function index() {
 
     $isAdmin = isAdmin();
     if (!$isAdmin) Router::redirect('/');
@@ -58,7 +58,7 @@ class ServiceController {
     ]);
   }
 
-  public static function create() {
+  public function create() {
     $isAdmin = isAdmin();
     if (!$isAdmin) Router::redirect('/');
 
@@ -68,13 +68,14 @@ class ServiceController {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $service = new Service($_POST);
       $alerts = $service->validate();
+      
       if (empty($alerts)) {
         $service->save();
         header('Location: /admin/service/create');
       }
     }
     
-    Router::render('admin/crear', 'AdminLayout', [
+    Router::render('admin/createService', 'AdminLayout', [
       'title' => 'Crear servicio',
       'name' => $_SESSION['name'],
       'lastname' => $_SESSION['lastname'],
@@ -83,16 +84,16 @@ class ServiceController {
     ]);
   }
 
-  public static function update( $id = '') {
+  public function update( $id = '') {
     $isAdmin = isAdmin();
     if (!$isAdmin) Router::redirect('/');
     $alerts = [];
-
+    
     $service = Service::findById( $id );
     if (!$service) Router::redirect('/admin/services');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $service->syncronize($_POST);
+      $service->synchronize($_POST);
       $alerts = $service->validate();
 
       if (empty($alerts)) {
@@ -101,7 +102,7 @@ class ServiceController {
       }
     }
     
-    Router::render('admin/editar', 'AdminLayout', [
+    Router::render('admin/updateService', 'AdminLayout', [
       'title' => $service->title,
       'name' => $_SESSION['name'],
       'lastname' => $_SESSION['lastname'],
@@ -110,14 +111,14 @@ class ServiceController {
     ]);
   }
 
-  public static function eliminar() {
-      
+  public function delete() {
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $servicio = Service::findById($id);
-    $servicio->eliminar();
+      $id = $_POST['id'];
+      $service = Service::findById($id);
+      $service->delete();
 
-    header('Location:'. $_SERVER['HTTP_REFERER']);
+      header('Location:'. $_SERVER['HTTP_REFERER']);
     }
   }
 }

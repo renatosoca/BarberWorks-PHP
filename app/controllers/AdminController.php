@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Router;
-use App\Models\CitasServicios;
+use App\Models\AppointmentServices;
 
 class AdminController {
 
@@ -25,7 +25,7 @@ class AdminController {
         $consulta .= " INNER JOIN services s ON ad.service_id = s.id ";
         $consulta .= " WHERE appointment_date =  '{$fecha}' ";
 
-        $citas = CitasServicios::PrepareSQL($consulta);
+        $citas = AppointmentServices::PrepareSQL($consulta);
 
         Router::render('admin/index', 'AdminLayout', [
             'title' => 'Inicio',

@@ -33,6 +33,7 @@ function isAdmin(): bool {
 
 function isLinkActive(string $link): bool {
   $current = $_SERVER['REQUEST_URI'];
+  $current = explode('?', $current)[0];
 
   return ($current === $link);
 }

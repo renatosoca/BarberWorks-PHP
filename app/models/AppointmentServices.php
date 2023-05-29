@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class CitasServicios extends Model {
+class AppointmentServices extends Model {
   protected static string $table = 'appointments_details';
   protected static array $columnsDB = ['id', 'appointment_time', 'client', 'email', 'phone', 'service', 'price'];
 

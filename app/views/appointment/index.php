@@ -6,9 +6,13 @@
     <p class="text-sm font-medium text-gray-200" >Estamos aquí para ayudarte</p>
   </div>
 
+  <?php if (count($appointments) === 0): ?>
+    <h3 class="text-2xl font-bold font-Jakarta text-center py-8">Aquí se mostraran todas tus citas cuando agendes una o más</h3>
+  <?php return; endif; ?>
+
   <h2 class="text-xl font-bold font-Jakarta my-6">Tus proximas citas</h2>
 
-  <div class="" >
+  <div>
 
     <?php foreach ($appointments as $appointment): ?>
       <div class="bg-[#001E3C] rounded-md shadow-md p-4 my-4 ">

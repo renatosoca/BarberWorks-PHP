@@ -37,7 +37,7 @@ class AuthController {
           return Router::redirect('/admin/home');
         } 
         
-        Router::redirect('/appoitment');
+        Router::redirect('/appointment');
       }
     }
 

@@ -1,6 +1,6 @@
 <?php include_once __DIR__.'/../templates/sideBar.php' ?>
 
-<div class="w-full px-4 py-6 text-white" id="create-Appointment">
+<div class="w-full px-4 py-6 text-white" id="create-appointment">
 
   <div class="pt-4" >
     <div 
@@ -107,10 +107,3 @@
     </div>
   </div>
 </div>
-
-<?php 
-  //$script = "
-  //  <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-  //  <script src='build/js/app.js'></script>
-  //"; 
-?>

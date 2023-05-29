@@ -185,6 +185,7 @@ class Model {
     $query = "DELETE FROM ". static::$table . " ";
     $query .= "WHERE id = ". self::$database->quote( $this->id ) . " ";
     $query .= "LIMIT 1";
+    
     $response = self::$database->prepare( $query );
     $result = $response->execute();
 
