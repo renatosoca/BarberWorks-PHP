@@ -28,7 +28,6 @@ const appointment: IAppointment = {
   services: []
 }
 
-const services = await getAllServices();
 
 const initialAppointment = () => {
   appointment.id = userId && userId.value;
@@ -38,7 +37,7 @@ const initialAppointment = () => {
   showSection();
   tabs();
 
-  showServices(services);
+  showServices();
 
   buttonsPage();
   nextPage();
@@ -122,7 +121,8 @@ const PreviusPage = () => {
   })
 }
 
-const showServices = (services: IAppointmentService[]): void => {
+const showServices = async () => {
+  const services = await getAllServices();
 
   services.map(service => {
     const { id, price, title } = service;

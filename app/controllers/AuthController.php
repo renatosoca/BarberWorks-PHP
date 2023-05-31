@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Router;
 use App\Models\User;
+use App\Utils\Email;
 
 class AuthController {
 
@@ -48,6 +49,8 @@ class AuthController {
       'alerts' => $alerts,
       'user' => $tempUser,
     ]);
+
+    return;
   }
 
   public static function registerUser() {
@@ -69,11 +72,21 @@ class AuthController {
         $user->hashPassword();
         $user->generateToken();
 
-        //Send Mail
+        $mail = new Email($user->email, $user->name, $user->lastname, $user->token);
+        $response = $mail->SendMail(
+          'register',
+          'Registro de cuenta',
+          'Confirmar cuenta',
+          $_ENV['HOST'] . "/confirm-account/" . $user->token,
+        );
 
-        $user->save();
-        
-        Router::redirect('/message');
+        if ( $response ) {
+          $user->save();
+          
+          Router::redirect('/message');
+        }
+
+        User::setAlert('error', 'Ha ocurrido un error al crear tu cuenta, por favor intenta nuevamente');
       }
     }
 
@@ -84,6 +97,8 @@ class AuthController {
       'user' => $user,
       'alerts' => $alerts,
     ]);
+
+    return;
   }
 
   public static function confirmAccount( $token = '') {
@@ -116,6 +131,8 @@ class AuthController {
       'alerts' => $alerts,
       'isVerified' => $isVerified,
     ]);
+
+    return;
   }
 
   public static function forgotPassword() {
@@ -134,8 +151,13 @@ class AuthController {
         $user->generateToken();
         $user->save();
 
-        //Send Mail
-
+        $mail = new Email($user->email, $user->name, $user->lastname, $user->token);
+        $response = $mail->SendMail(
+          'forgotPassword', 
+          'Recuperar contraseña',
+          'Reestablecer contraseña',
+          $_ENV['HOST'] . "/reset-password/" . $user->token,
+        );
         User::setAlert('success', 'Hemos enviado las instrucciones a tu Email');
       }
     }
@@ -146,6 +168,8 @@ class AuthController {
       'title' => 'Recuperar contraseña',
       'alerts' => $alerts,
     ]);
+
+    return;
   }
 
   public static function resetPassword( $token = '' ) {
@@ -183,6 +207,8 @@ class AuthController {
       'alerts' => $alerts,
       'error' => $error,
     ]);
+
+    return;
   }
 
 }

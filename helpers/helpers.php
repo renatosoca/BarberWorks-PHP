@@ -120,6 +120,9 @@ function cssTag(string $entry): string {
 
   $tags = '';
   foreach (cssUrls($entry) as $url) {
+    /* $tags .= '<link rel="preload" href="'
+      . $url
+      . '" as="style" >'; */
     $tags .= '<link rel="stylesheet" href="'
       . $url
       . '">';
@@ -137,23 +140,23 @@ function getManifest(): array {
 }
 
 function assetUrl(string $entry): string {
-    $manifest = getManifest();
+  $manifest = getManifest();
 
-    return isset($manifest[$entry])
-        ? '/dist/' . $manifest[$entry]['file']
-        : '';
+  return isset($manifest[$entry])
+    ? '/dist/' . $manifest[$entry]['file']
+    : '';
 }
 
 function importsUrls(string $entry): array {
-    $urls = [];
-    $manifest = getManifest();
+  $urls = [];
+  $manifest = getManifest();
 
-    if (!empty($manifest[$entry]['imports'])) {
-        foreach ($manifest[$entry]['imports'] as $imports) {
-            $urls[] = '/dist/' . $manifest[$imports]['file'];
-        }
+  if (!empty($manifest[$entry]['imports'])) {
+    foreach ($manifest[$entry]['imports'] as $imports) {
+      $urls[] = '/dist/' . $manifest[$imports]['file'];
     }
-    return $urls;
+  }
+  return $urls;
 }
 
 function cssUrls(string $entry): array {
