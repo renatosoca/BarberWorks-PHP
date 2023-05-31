@@ -166,14 +166,14 @@ const selectService = (service: IAppointmentService): void => {
     const services = appointment.services.filter(service => service.id !== id);
     appointment.services = services; //001E3C
 
-    serviceSelected.classList.remove('bg-[#103759]');
+    serviceSelected.classList.remove('bg-blue-500');
     serviceSelected.classList.add('bg-[#001E3C]');
     return;
   }
 
   appointment.services = [...services, service];
   serviceSelected.classList.remove('bg-[#001E3C]');
-  serviceSelected.classList.add('bg-[#103759]');
+  serviceSelected.classList.add('bg-blue-500');
   return;
 }
 
