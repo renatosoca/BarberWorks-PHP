@@ -21,16 +21,16 @@
           $total = 0;
       ?>
           <li class="text-base text-blue-500 font-semibold grid grid-cols-12 gap-2 bg-[#001E3C] rounded p-6">
-            <div class="col-span-6">
-              <h2 class="text-white text-xl font-bold pb-2" >Datos de la cita</h2>
+            <div class="col-span-12 2sm:col-span-6">
+              <h2 class="text-white text-center 1sm:text-start text-xl font-bold pb-2" >Datos de la cita</h2>
               <p>Hora: <span class="text-white" ><?php echo sanitize($value->appointment_time); ?></span></p>
               <p>Cliente: <span class="text-white" ><?php echo sanitize($value->client); ?></span></p>
               <p>Email: <span class="text-white" ><?php echo sanitize($value->email); ?></span></p>
               <p>Telefono: <span class="text-white" ><?php echo sanitize($value->phone); ?></span></p>
             </div>
 
-            <div class="col-span-6">
-              <h3 class="text-white text-xl font-bold pb-2" >Servicios</h3>
+            <div class="col-span-12 2sm:col-span-6">
+              <h3 class="text-white text-center 1sm:text-start text-xl font-bold pb-2" >Servicios</h3>
       <?php
               $idAppointments = $value->id;
         endif;

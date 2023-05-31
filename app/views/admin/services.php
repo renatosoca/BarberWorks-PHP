@@ -6,7 +6,7 @@
   
   <ul class="w-full grid grid-cols-12 gap-4">
     <?php foreach ($services as $row): ?>
-      <li class="bg-[#001E3C] col-span-6 px-4 py-2 rounded">
+      <li class="bg-[#001E3C] col-span-12 1sm:col-span-6 px-4 py-2 rounded">
         <p>Servicio número: <span><?php echo $row->id ?></span></p>
         <p>Titulo: <span><?php echo $row->title; ?></span></p>
         <p>Precio: <span><?php echo $row->price; ?></span></p>

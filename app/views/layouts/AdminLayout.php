@@ -11,10 +11,10 @@
   <?= vite("main.ts") ?>
 </head>
 <body>
-  <div class="flex flex-col min-h-screen animate-fadeIn bg-gray-950">
+  <div class="flex flex-col min-h-screen animate-fadeIn bg-gray-950 relative">
     <?php include_once __DIR__.'/../templates/header.php' ?>
   
-    <div class="max-w-[80rem] w-full mx-auto flex-1 flex h-full">
+    <div class="max-w-[80rem] w-full mx-auto flex-1 flex h-full ">
       <?php echo $content; ?>
     </div>
   </div>

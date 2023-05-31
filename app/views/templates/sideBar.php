@@ -1,4 +1,8 @@
-<aside class="max-w-[15rem] w-full">
+<!-- <aside class="max-w-[15rem] w-full"> -->
+<aside 
+  class="absolute 2lg:relative left-0 top-0 bottom-0 -translate-x-full 2lg:transform-none max-w-[15rem] w-full bg-[#0A1929] 2lg:bg-inherit text-[#B2BAC2] font-bold transition-transform duration-300"
+  id="sidebar"
+>
   <ul class="px-3 py-6 flex flex-col gap-2 text-[#B2BAC2] font-bold">
     <li 
       class="w-full <?php echo isLinkActive('/appointment') ? 'bg-[#132F4C] text-[#64B5F6]' : '' ?> hover:bg-[#103759] hover:text-white rounded transition-colors duration-200 ease-in-out"

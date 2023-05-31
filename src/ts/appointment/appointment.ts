@@ -128,7 +128,7 @@ const showServices = async () => {
     const { id, price, title } = service;
 
     const btnService = document.createElement('button');
-    btnService.classList.add('bg-[#001E3C]', 'col-span-6', 'w-full', 'overflow-hidden', 'rounded');
+    btnService.classList.add('bg-[#001E3C]', 'col-span-12', '2cs:col-span-6', 'w-full', 'overflow-hidden', 'rounded');
     btnService.dataset.idService = id;
     btnService.onclick = () => {
       const serviceObject = {

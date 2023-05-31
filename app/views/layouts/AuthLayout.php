@@ -11,7 +11,7 @@
 </head>
 <body>
   <div class="grid grid-cols-12 h-screen animate-fadeIn overflow-hidden">
-    <div class="col-span-6 h-full">
+    <div class="col-span-6 h-full hidden 2md:block">
       <img
         class="h-full w-full object-cover"
         src="/images/hero-auth.jpg"
@@ -19,7 +19,7 @@
       >
     </div>
   
-    <div class="relative col-span-6 bg-black text-white flex flex-col justify-center items-center overflow-auto" >
+    <div class="relative col-span-12 2md:col-span-6 bg-black text-white flex flex-col justify-center items-center overflow-auto" >
       <div class="h-screen items-center w-full overflow-auto">
         <div class="h-full flex flex-col justify-center items-center overflow-auto px-6">
           <?php echo $content; ?>
