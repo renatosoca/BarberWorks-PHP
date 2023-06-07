@@ -113,15 +113,19 @@ class Model {
   }
   
   public static function PrepareSQL( string $query ): array {
-    $response = self::$database->prepare( $query );
-    $response->execute();
-    
-    $container = [];
-    while ( $register = $response->fetch( self::$database::FETCH_ASSOC ) ) {
-      $container[] = static::createObjects( $register );
+    try {
+      $response = self::$database->prepare( $query );
+      $response->execute();
+      
+      $container = [];
+      while ( $register = $response->fetch( self::$database::FETCH_ASSOC ) ) {
+        $container[] = static::createObjects( $register );
+      }
+      
+      return $container;
+    } catch (\Throwable $th) {
+      return [];
     }
-    
-    return $container;
   }
   public static function createObjects( array $register ): object {
     $object = new static;

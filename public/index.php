@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../app/core/app.php';
+require_once __DIR__ . '/../app/main.php';
 
 use App\Router;
 use App\Controllers\AuthController;

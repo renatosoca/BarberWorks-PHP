@@ -43,6 +43,6 @@
 </form>
 
 <div class="max-w-lg w-full mx-auto flex gap-2 justify-between">
-  <p>¿Aún no tienes una cuenta? <a href="/register">Crear una</a></p>
-  <a href="/forgot-password">¿Olvidaste tu Password?</a>
+  <p>¿Aún no tienes una cuenta? <a href="/register" class="no-underline hover:underline">Crear una</a></p>
+  <a href="/forgot-password" class="hover:underline">Olvite mi contraseña</a>
 </div>

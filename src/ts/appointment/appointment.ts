@@ -23,7 +23,7 @@ const appointment: IAppointment = {
   id: '',
   name: '',
   lastname: '',
-  appointmentDate: null,
+  appointmentDate: undefined,
   appointmentTime: '',
   services: []
 }
@@ -336,7 +336,7 @@ const showAlert = (message: string, typeMessage: string, ref: string, hidden: bo
 
 const bookAppointment = async () => {
   const response = await createService(appointment);
-  console.log(response);
+
   if (response) {
     Swal.fire({
       icon: "success",

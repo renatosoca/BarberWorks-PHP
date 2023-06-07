@@ -2,6 +2,7 @@ import "vite/modulepreload-polyfill";
 import "./css/style.css";
 import { initialSearchAppointment } from "./ts/admin";
 import { initialAppointment } from "./ts/appointment";
+import { serviceApp } from "./ts/service/serviceApp";
 
 const createAppointment = document.querySelector("#create-appointment");
 const listAppointmentsAdmin = document.querySelector("#list-appointments-admin");
@@ -23,3 +24,5 @@ if (sidebarAdmin && btnSidebarAdmin) {
     sidebarAdmin.classList.toggle('-translate-x-full');
   })
 }
+
+serviceApp()

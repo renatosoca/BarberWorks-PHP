@@ -10,7 +10,7 @@ class ServiceController {
 
   public function getAllServices() {
     $services = Service::findAll();
-
+    
     return $services;
   }
   public function saveAppointment() {

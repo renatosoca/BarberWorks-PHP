@@ -82,8 +82,8 @@
     </form>
 
     <div class="max-w-lg w-full mx-auto flex gap-2 justify-between">
-      <p>¿Ya tienes una cuenta? <a href="/">Inicia Sesión</a></p>
-      <a href="/forgot-password">¿Olvidaste tu Password?</a>
+      <p>¿Ya tienes una cuenta? <a href="/" class="hover:underline">Inicia Sesión</a></p>
+  <a href="/forgot-password" class="hover:underline">Olvite mi contraseña</a>
     </div>
 
   </div>

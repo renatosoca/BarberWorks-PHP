@@ -35,13 +35,14 @@
     <div class="" id="section-1">
       <h2 class="pb-4 text-4xl font-Jakarta font-bold" >Configura tu cita</h2>
       <h2 class="pb-8 text-xl font-Jakarta font-medium" >Elige uno o más servicios a continuación</h2>
-      <div class="grid grid-cols-12 gap-4 w-full" id="services"></div>
+
+      <div class=" w-full" id="services"></div>
     </div>
 
     <div class="hidden" id="section-2">
       <h2 class="pb-8 text-4xl font-Jakarta font-bold" >Selecciona tu fecha y hora</h2>
 
-      <form action="" class="formulario">
+      <form action="">
         <input type="hidden" id="userId" value="<?php echo $userId ?>">
 
         <div class="flex gap-4 w-full">
