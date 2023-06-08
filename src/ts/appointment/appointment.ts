@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import { formatDate, formatPrice } from '../helpers/currentFormat';
-import { IAppointment, IAppointmentService } from '../interfaces';
+import { IAppointment, IServices } from '../interfaces';
 import { createService, getAllServices } from './servicesAPI';
 
 const containerServices = document.querySelector('#services') as HTMLDivElement;
@@ -62,7 +62,7 @@ const tabs = () => {
       }
     })
   })
-}
+} //
 
 const showSection = () => {
   const previusSection = document.querySelector('.show-section') as HTMLDivElement;
@@ -84,7 +84,7 @@ const showSection = () => {
   const currentTab = document.querySelector(`[data-tab='${seccionTab}']`) as HTMLDivElement;
   currentTab.classList.remove('bg-blue-300', 'text-black');
   currentTab.classList.add('bg-blue-500', 'text-white', 'current-tab');
-}
+} //
 
 const buttonsPage = () => {
   if (seccionTab === firstSeccion) {
@@ -101,7 +101,7 @@ const buttonsPage = () => {
   }
 
   showSection();
-}
+} //
 
 const nextPage = () => {
   afterPage.addEventListener('click', () => {
@@ -155,9 +155,9 @@ const showServices = async () => {
 
     containerServices.appendChild(btnService);
   })
-}
+} //
 
-const selectService = (service: IAppointmentService): void => {
+const selectService = (service: IServices): void => {
   const { id } = service;
   const { services } = appointment;
   const serviceSelected = document.querySelector(`[data-id-service="${id}"]`) as HTMLButtonElement;
@@ -175,7 +175,7 @@ const selectService = (service: IAppointmentService): void => {
   serviceSelected.classList.remove('bg-[#001E3C]');
   serviceSelected.classList.add('bg-blue-500');
   return;
-}
+} //
 
 const selectDateAppointment = (): void => {
   inputAppointmenDate.addEventListener("input", ({ target }) => {
@@ -193,7 +193,7 @@ const selectDateAppointment = (): void => {
       return
     }
   });
-}
+} // Por
 
 const selectTimeAppointment = () => {
   inputAppointmenTime.addEventListener("input", ({ target }) => {
@@ -213,7 +213,7 @@ const selectTimeAppointment = () => {
     }
 
   });
-}
+} // Por
 
 const showResumen = () => {
 
@@ -309,7 +309,7 @@ const showResumen = () => {
   if (services.length > 0) containerResumen.appendChild(containerTotal);
 
   containerResumen.appendChild(bookAppointBtn);
-}
+} // Por
 
 const showAlert = (message: string, typeMessage: string, ref: string, hidden: boolean = true) => {
   const previusAlert = document.querySelector(".alert");
@@ -332,7 +332,7 @@ const showAlert = (message: string, typeMessage: string, ref: string, hidden: bo
       divAlert.remove();
     }, 3000);
   }
-}
+} // Por
 
 const bookAppointment = async () => {
   const response = await createService(appointment);
@@ -355,7 +355,7 @@ const bookAppointment = async () => {
     text: "Hubo un error al guardar la cita",
     confirmButtonText: 'Ok!',
   });
-}
+} //Ultimo
 
 export {
   initialAppointment

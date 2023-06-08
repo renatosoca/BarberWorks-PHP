@@ -19,7 +19,7 @@
     </form>
   </div>
 
-  <?php if(count($appointments) === 0) echo '<h2 class="text-center text-white font-bold text-2xl pt-6">No hay appointments en esta Fecha</h2>'; ?>
+  <?php if(count($appointments) === 0) echo '<h2 class="text-center text-white font-bold text-2xl pt-6">No hay citas en esta fecha</h2>'; ?>
 
   <div id="appointments-admin">
     <ul class="flex flex-col gap-4 pt-6">

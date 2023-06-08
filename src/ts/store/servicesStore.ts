@@ -19,7 +19,13 @@ const getServices = (): IServices[] => {
   return serviceStore.services;
 }
 
+const getService = (id: string): IServices | undefined => {
+  const serviceFound = serviceStore.services.find((service) => service.id === id);
+  return serviceFound;
+}
+
 export default {
   loadServices,
   getServices,
+  getService,
 }

@@ -1,8 +1,8 @@
-import { IAppointment, IAppointmentService } from "../interfaces";
+import { IAppointment, IServices } from "../interfaces";
 
 export const API_URL = 'http://localhost:3000';
 
-const getAllServices = async (): Promise<IAppointmentService[]> => {
+const getAllServices = async (): Promise<IServices[]> => {
   try {
     const response = await fetch(`${API_URL}/api/v1/services`);
     const data = await response.json();
